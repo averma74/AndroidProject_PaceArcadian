@@ -31,4 +31,15 @@
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="forgot_password_msg">We just need your registered Email Id to send you password reset instructions.</string>
     <string name="email_id">Email ID</string>
+    <string name="profile">PROFILE</string>
+    <string name="btn_edit_profile">EDIT PROFILE</string>
+    <string name="btn_save_profile">SAVE</string>
+    <string name="user_first_name">First Name</string>
+    <string name="user_last_name">Last Name</string>
+    <string name="user_graduation_year">Graduation Year</string>
+    <string name="user_reputation">Reputation</string>
+    <string name="fields_required">All fields are required</string>
+    <string name="invalid_graduation_year">Graduation year entered is invalid</string>
+    <string name="profile_updated">Profile Successfully Updated</string>
+
 </resources>

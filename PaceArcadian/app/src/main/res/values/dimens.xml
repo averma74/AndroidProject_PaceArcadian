@@ -2,6 +2,9 @@
 <resources>
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="logo_w_h">80dp</dimen>
-    <!--<dimen name="logo_w_h">80dp</dimen>-->
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="item_height_small">150dp</dimen>
+    <dimen name="logo_w_h">175dp</dimen>
+
 </resources>

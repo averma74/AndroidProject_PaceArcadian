@@ -22,10 +22,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
 
-    private Button btnChangePassword, btnRemoveUser,
-            changePassword, remove, signOut;
+    private Button btnChangePassword, btnRemoveUser, changePassword, remove, signOut, profile;
     private TextView email;
-
     private EditText oldEmail, password, newPassword;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
@@ -55,47 +53,34 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-
-        btnChangePassword = (Button) findViewById(R.id.change_password_button);
-
-        btnRemoveUser = (Button) findViewById(R.id.remove_user_button);
-
-        changePassword = (Button) findViewById(R.id.changePass);
-
-        remove = (Button) findViewById(R.id.remove);
-        signOut = (Button) findViewById(R.id.sign_out);
-
-        oldEmail = (EditText) findViewById(R.id.old_email);
-
-        password = (EditText) findViewById(R.id.password);
-        newPassword = (EditText) findViewById(R.id.newPassword);
-
+        btnChangePassword = findViewById(R.id.change_password_button);
+        btnRemoveUser = findViewById(R.id.remove_user_button);
+        changePassword = findViewById(R.id.changePass);
+        remove =  findViewById(R.id.remove);
+        signOut = findViewById(R.id.sign_out);
+        profile = findViewById(R.id.profile_button);
+        oldEmail = findViewById(R.id.old_email);
+        password = findViewById(R.id.password);
+        newPassword = findViewById(R.id.newPassword);
         oldEmail.setVisibility(View.GONE);
-
         password.setVisibility(View.GONE);
         newPassword.setVisibility(View.GONE);
-
         changePassword.setVisibility(View.GONE);
-
         remove.setVisibility(View.GONE);
-
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 
         if (progressBar != null) {
             progressBar.setVisibility(View.GONE);
         }
 
-
         btnChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                oldEmail.setVisibility(View.GONE);
 
+                oldEmail.setVisibility(View.GONE);
                 password.setVisibility(View.VISIBLE);
                 newPassword.setVisibility(View.VISIBLE);
-
                 changePassword.setVisibility(View.VISIBLE);
-
                 remove.setVisibility(View.GONE);
             }
         });
@@ -163,14 +148,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, UserProfile.class));
+                finish();
+            }
+        });
+
     }
 
     @SuppressLint("SetTextI18n")
     private void setDataToView(FirebaseUser user) {
-
         email.setText("User Email: " + user.getEmail());
-
-
     }
 
     // this listener will be called when there is change in firebase user session
@@ -196,7 +186,6 @@ public class MainActivity extends AppCompatActivity {
     //sign out method
     public void signOut() {
         auth.signOut();
-
 
 // this listener will be called when there is change in firebase user session
         FirebaseAuth.AuthStateListener authListener = new FirebaseAuth.AuthStateListener() {
