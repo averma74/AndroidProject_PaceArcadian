@@ -8,14 +8,16 @@
     android:padding="@dimen/activity_horizontal_margin"
     android:orientation="vertical">
 
-    <ImageView
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height= "wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="30dp"
         android:src="@drawable/ic_launcher_profile"
         android:contentDescription=""
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        android:id="@+id/user_photo_button"
+        />
     <EditText
         android:id="@+id/edit_user_first_name"
         android:layout_width="match_parent"
