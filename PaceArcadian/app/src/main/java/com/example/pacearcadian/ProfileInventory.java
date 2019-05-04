@@ -1,6 +1,7 @@
 package com.example.pacearcadian;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.pacearcadian.AccountActivity.AddItem;
 
 import java.util.ArrayList;
 
@@ -41,14 +44,13 @@ public class ProfileInventory extends Activity {
         mFloatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopupFragment();
+                Intent intent = new Intent(ProfileInventory.this, AddItem.class);
+                startActivity(intent);
             }
         });
     }
 
-    // opens a popup dialog that asks for title, description, image
-    private void showPopupFragment() {
-    }
+
 
     // initialize all views
     private void initializeViews() {
