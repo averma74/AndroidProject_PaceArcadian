@@ -31,8 +31,8 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         Items inventoryItem = mItemsList.get(i);
         RecyclerViewHolder recyclerViewHolder = (RecyclerViewHolder) viewHolder;
-        recyclerViewHolder.mTitle.setText("Test Title");
-        recyclerViewHolder.mDescription.setText("Test Description");
+        recyclerViewHolder.mTitle.setText(inventoryItem.getTitle());
+        recyclerViewHolder.mDescription.setText(inventoryItem.getDescription());
     }
 
     @Override
@@ -44,13 +44,12 @@ public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
         TextView mTitle;
         TextView mDescription;
-        ImageView mImageView;
 
         public RecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
-            mTitle = itemView.findViewById(R.id.item_image);
+            mTitle = itemView.findViewById(R.id.title);
             mDescription = itemView.findViewById(R.id.description);
-            mImageView = itemView.findViewById(R.id.item_image);
+            //mImageView = itemView.findViewById(R.id.item_image);
         }
     }
 }

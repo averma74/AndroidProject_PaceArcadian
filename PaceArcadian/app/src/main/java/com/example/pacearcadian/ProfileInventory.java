@@ -37,6 +37,16 @@ public class ProfileInventory extends Activity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new InventoryRecyclerViewAdapter(this, mItem);
         recyclerView.setAdapter(mAdapter);
+
+        addData();
+    }
+
+    private void addData() {
+        mItem.add(new Items("Movie Ticket - Endgame", "Endgame tickets available for 5/3/2019"));
+        mItem.add(new Items("Book", "Cracking the coding interview"));
+        mItem.add(new Items("Shoes", "Red shoes"));
+        mItem.add(new Items("Notes for Android", "Kachi's class notes"));
+        mAdapter.notifyDataSetChanged();
     }
 
     // click listener for the floating action button
