@@ -95,8 +95,20 @@
         android:textStyle="bold"
         tools:layout_editor_absoluteY="259dp"
         tools:layout_editor_absoluteX="199dp"
-        android:layout_above="@+id/profile_button"
+        android:layout_above="@+id/profile_inventory_button"
         android:layout_alignStart="@+id/changePass" />
+
+    <Button
+        android:id="@+id/profile_inventory_button"
+        style="?android:textAppearanceSmall"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="INVENTORY"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="312dp"
+        android:layout_above="@+id/profile_button"
+        android:layout_alignStart="@+id/profile_button" />
 
     <Button
         android:id="@+id/profile_button"

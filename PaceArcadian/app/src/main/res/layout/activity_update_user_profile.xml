@@ -8,7 +8,7 @@
     android:padding="@dimen/activity_horizontal_margin"
     android:orientation="vertical">
 
-    <ImageButton
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height= "wrap_content"
         android:layout_gravity="center_horizontal"
@@ -16,7 +16,17 @@
         android:src="@drawable/ic_launcher_profile"
         android:contentDescription=""
         tools:ignore="ContentDescription"
+        android:id="@+id/user_photo"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:id="@+id/user_photo_button"
+        android:background="@color/colorAccent"
+        android:text="@string/btn_edit_photo"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
         />
     <EditText
         android:id="@+id/edit_user_first_name"

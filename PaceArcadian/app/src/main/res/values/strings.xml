@@ -41,5 +41,6 @@
     <string name="fields_required">All fields are required</string>
     <string name="invalid_graduation_year">Graduation year entered is invalid</string>
     <string name="profile_updated">Profile Successfully Updated</string>
+    <string name="btn_edit_photo">Edit photo</string>
 
 </resources>

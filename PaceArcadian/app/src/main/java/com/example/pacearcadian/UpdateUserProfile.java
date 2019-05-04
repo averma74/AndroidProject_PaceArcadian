@@ -52,7 +52,8 @@ public class UpdateUserProfile extends AppCompatActivity {
     private EditText mFirstName, mLastName, mGraduationYear;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
-    private ImageButton mProfilePhoto;
+    private ImageView mProfilePhoto;
+    private Button mEditButton;
     static final int SELECT_PICTURE=1000;
     Map<String, UserInformation> mUser = new HashMap<>();
 
@@ -69,7 +70,8 @@ public class UpdateUserProfile extends AppCompatActivity {
         mFirstName = findViewById(R.id.edit_user_first_name);
         mLastName = findViewById(R.id.edit_user_last_name);
         mGraduationYear = findViewById(R.id.edit_user_graduation_year);
-        mProfilePhoto = findViewById(R.id.user_photo_button);
+        mProfilePhoto=findViewById(R.id.user_photo);
+        mEditButton = findViewById(R.id.user_photo_button);
         handlePermission();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -81,7 +83,7 @@ public class UpdateUserProfile extends AppCompatActivity {
             }
         };
 
-        mProfilePhoto.setOnClickListener(view->{
+        mEditButton.setOnClickListener(view->{
             openImageChooser();
         });
 
@@ -160,10 +162,10 @@ public class UpdateUserProfile extends AppCompatActivity {
                             String path = getPathFromURI(selectedImageUri);
                           // Log.i(TAG, "Image Path : " + path);
                             // Set the image in ImageView
-                            findViewById(R.id.user_photo_button).post(new Runnable() {
+                            findViewById(R.id.user_photo).post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    ((ImageView) findViewById(R.id.user_photo_button)).setImageURI(selectedImageUri);
+                                    ((ImageView) findViewById(R.id.user_photo)).setImageURI(selectedImageUri);
                                 }
                             });
 
