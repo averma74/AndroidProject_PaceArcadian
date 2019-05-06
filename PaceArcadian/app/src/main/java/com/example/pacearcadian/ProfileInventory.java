@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ public class ProfileInventory extends Activity {
 
     ArrayList<Items> mItem = new ArrayList<>();
     private InventoryRecyclerViewAdapter mAdapter;
+    private final int ACTIVITY_REQUEST_CODE = 1;
 
     ImageView mProfileImage;
     TextView mUsername;
@@ -55,12 +57,23 @@ public class ProfileInventory extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileInventory.this, AddItem.class);
-                startActivity(intent);
+                startActivityForResult(intent, ACTIVITY_REQUEST_CODE);
             }
         });
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //Intent intent = getIntent();
+        String title = data.getStringExtra(AddItem.EXTRA_MESSAGE_TITLE);
+        String desc = data.getStringExtra(AddItem.EXTRA_MESSAGE_DESCRIPTION);
+        if (resultCode == RESULT_OK) {
+            Log.i("debug", title);
+            mItem.add(new Items(title, desc));
+            mAdapter.notifyDataSetChanged();
+        }
+    }
 
     // initialize all views
     private void initializeViews() {

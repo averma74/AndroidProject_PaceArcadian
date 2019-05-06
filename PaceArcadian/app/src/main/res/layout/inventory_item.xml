@@ -5,29 +5,46 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/common_google_signin_btn_text_light_disabled">
 
-    <ImageView
-        android:id="@+id/item_image"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/description"
-        android:padding="20dp"/>
+        android:background="@color/cardview_light_background"
+        android:layout_margin="10dp">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="45sp"
-        android:text="Test Title"/>
+        <ImageView
+            android:id="@+id/item_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_below="@id/description"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_add_a_photo_black_24dp"
+            android:padding="20dp"/>
 
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:textSize="20sp"
-        android:text="Test Description"/>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/item_image"
+            android:layout_marginStart="10dp"
+            android:textSize="30sp"
+            android:text="Test Title"/>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_toEndOf="@id/item_image"
+            android:layout_marginStart="10dp"
+            android:textSize="16sp"
+            android:text="Test Description"/>
+
+    </RelativeLayout>
+
+
 
 
 
