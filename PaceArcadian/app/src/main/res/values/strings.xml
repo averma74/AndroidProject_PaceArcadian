@@ -49,5 +49,8 @@
     <string name="save_item">Save</string>
     <string name="enter_value_for_title">Please enter a value for title.</string>
     <string name="enter_value_for_description">Please enter a description.</string>
+    <string name="rating">RATING</string>
+    <string name="following">FOLLOWING</string>
+    <string name="followers">FOLLOWERS</string>
 
 </resources>

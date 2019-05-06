@@ -65,11 +65,11 @@ public class ProfileInventory extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //Intent intent = getIntent();
+        //get data from second activity
         String title = data.getStringExtra(AddItem.EXTRA_MESSAGE_TITLE);
         String desc = data.getStringExtra(AddItem.EXTRA_MESSAGE_DESCRIPTION);
         if (resultCode == RESULT_OK) {
-            Log.i("debug", title);
+            //add it to recycler view
             mItem.add(new Items(title, desc));
             mAdapter.notifyDataSetChanged();
         }
