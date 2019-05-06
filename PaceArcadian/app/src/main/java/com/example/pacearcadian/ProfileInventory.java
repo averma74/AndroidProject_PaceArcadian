@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pacearcadian.AccountActivity.AddItem;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -26,6 +28,8 @@ public class ProfileInventory extends Activity {
     TextView mUsername;
     TextView mRatingTitle, mRating, mFollowerTitle, mFollowerCount, mFollowingTitle, mFollowingCount;
     FloatingActionButton mFloatingButton;
+    private FirebaseAuth auth;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +39,10 @@ public class ProfileInventory extends Activity {
         initializeViews();
         implementClickListener();
 
+        auth = FirebaseAuth.getInstance();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Log.i("debug", user.getEmail());
+        mUsername.setText(user.getEmail());
         RecyclerView recyclerView = findViewById(R.id.inventoryFeed);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new InventoryRecyclerViewAdapter(this, mItem);
