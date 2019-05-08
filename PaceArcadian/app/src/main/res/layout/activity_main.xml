@@ -103,7 +103,7 @@
         style="?android:textAppearanceSmall"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="INVENTORY"
+        android:text="@string/inventory"
         android:textStyle="bold"
         tools:layout_editor_absoluteX="42dp"
         tools:layout_editor_absoluteY="312dp"

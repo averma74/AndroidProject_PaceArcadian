@@ -35,6 +35,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
@@ -52,8 +53,6 @@ public class UpdateUserProfile extends AppCompatActivity {
     private EditText mFirstName, mLastName, mGraduationYear;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
-    private ImageView mProfilePhoto;
-    private Button mEditButton;
     static final int SELECT_PICTURE=1000;
     Map<String, UserInformation> mUser = new HashMap<>();
 
@@ -70,16 +69,12 @@ public class UpdateUserProfile extends AppCompatActivity {
         mFirstName = findViewById(R.id.edit_user_first_name);
         mLastName = findViewById(R.id.edit_user_last_name);
         mGraduationYear = findViewById(R.id.edit_user_graduation_year);
-        mProfilePhoto=findViewById(R.id.user_photo);
-        mEditButton = findViewById(R.id.user_photo_button);
+        Button mEditButton = findViewById(R.id.user_photo_button);
         handlePermission();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (mFirebaseUser == null) {
-                    startActivity(new Intent(UpdateUserProfile.this, LoginActivity.class));
-                    finish();
-                }
+        mAuthListener = firebaseAuth -> {
+            if (mFirebaseUser == null) {
+                startActivity(new Intent(UpdateUserProfile.this, LoginActivity.class));
+                finish();
             }
         };
 
@@ -87,30 +82,23 @@ public class UpdateUserProfile extends AppCompatActivity {
             openImageChooser();
         });
 
-        btnSaveProfileInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnSaveProfileInfo.setOnClickListener(view -> {
 
-                String inputGraduationYear = mGraduationYear.getText().toString().trim();
+            String inputGraduationYear = mGraduationYear.getText().toString().trim();
 
-                if (mFirstName.getText().toString().isEmpty() || mLastName.getText().toString().isEmpty() ||
-                        mGraduationYear.getText().toString().isEmpty()) {
+            if (mFirstName.getText().toString().isEmpty() || mLastName.getText().toString().isEmpty() ||
+                    mGraduationYear.getText().toString().isEmpty()) {
 
-                    Toast.makeText(getApplicationContext(), getString(R.string.fields_required), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.fields_required), Toast.LENGTH_SHORT).show();
 
-                } else if(validateGraduationYear(inputGraduationYear) && (mUser != null)){
-                    updateProfileInfo();
-                }
+            } else if(validateGraduationYear(inputGraduationYear) && (mUser != null)){
+                updateProfileInfo();
             }
         });
     }
 
     //Code added by Rohan K for selecting the photo from External Storage;
     private void handlePermission() {
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return;
-        }
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             //ask for permission
@@ -123,19 +111,18 @@ public class UpdateUserProfile extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case SELECT_PICTURE:
-                for (int i = 0; i < permissions.length; i++) {
-                    String permission = permissions[i];
-                    if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
-                        boolean showRationale = ActivityCompat.shouldShowRequestPermissionRationale(this, permission);
-                        if (showRationale) {
-                            //  Show your own message here
-                        } else {
-                            showSettingsAlert();
-                        }
+        if (requestCode == SELECT_PICTURE) {
+            for (int i = 0; i < permissions.length; i++) {
+                String permission = permissions[i];
+                if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+                    boolean showRationale = ActivityCompat.shouldShowRequestPermissionRationale(this, permission);
+                    if (showRationale) {
+                        //  Show your own message here
+                    } else {
+                        showSettingsAlert();
                     }
                 }
+            }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
@@ -150,26 +137,18 @@ public class UpdateUserProfile extends AppCompatActivity {
 
     public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (resultCode == RESULT_OK) {
-                    if (requestCode == SELECT_PICTURE) {
-                        // Get the url from data
-                        final Uri selectedImageUri = data.getData();
-                        if (null != selectedImageUri) {
-                            // Get the path from the Uri
-                            String path = getPathFromURI(selectedImageUri);
-                          // Log.i(TAG, "Image Path : " + path);
-                            // Set the image in ImageView
-                            findViewById(R.id.user_photo).post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ((ImageView) findViewById(R.id.user_photo)).setImageURI(selectedImageUri);
-                                }
-                            });
+        new Thread(() -> {
+            if (resultCode == RESULT_OK) {
+                if (requestCode == SELECT_PICTURE) {
+                    // Get the url from data
+                    final Uri selectedImageUri = data.getData();
+                    if (null != selectedImageUri) {
+                        // Get the path from the Uri
+                        String path = getPathFromURI(selectedImageUri);
+                      // Log.i(TAG, "Image Path : " + path);
+                        // Set the image in ImageView
+                        findViewById(R.id.user_photo).post(() -> ((ImageView) findViewById(R.id.user_photo)).setImageURI(selectedImageUri));
 
-                        }
                     }
                 }
             }
@@ -180,6 +159,7 @@ public class UpdateUserProfile extends AppCompatActivity {
         String res = null;
         String[] proj = {MediaStore.Images.Media.DATA};
         Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
+        assert cursor != null;
         if (cursor.moveToFirst()) {
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             res = cursor.getString(column_index);
@@ -194,18 +174,14 @@ public class UpdateUserProfile extends AppCompatActivity {
         alertDialog.setTitle("Alert");
         alertDialog.setMessage("App needs to access the Camera.");
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "DONT ALLOW",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        //finish();
-                    }
+                (dialog, which) -> {
+                    dialog.dismiss();
+                    //finish();
                 });
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "SETTINGS",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        openAppSettings(UpdateUserProfile.this);
-                    }
+                (dialog, which) -> {
+                    dialog.dismiss();
+                    openAppSettings(UpdateUserProfile.this);
                 });
         alertDialog.show();
 

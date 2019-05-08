@@ -52,5 +52,10 @@
     <string name="rating">RATING</string>
     <string name="following">FOLLOWING</string>
     <string name="followers">FOLLOWERS</string>
+    <string name="first_name">First Name:</string>
+    <string name="last_name">Last Name:</string>
+    <string name="graduation_year">Graduation Year:</string>
+    <string name="email_text_view">Email:</string>
+    <string name="inventory">INVENTORY</string>
 
 </resources>

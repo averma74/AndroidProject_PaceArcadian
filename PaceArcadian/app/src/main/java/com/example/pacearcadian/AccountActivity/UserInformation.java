@@ -1,7 +1,5 @@
 package com.example.pacearcadian.AccountActivity;
 
-import java.util.Date;
-
 public class UserInformation {
 
     public String mFirstName;

@@ -30,16 +30,13 @@ public class UserProfile extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseUser mFirebaseUser;
     private TextView mFirstName, mLastName, mGraduationYear, mEmail;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private FirebaseAuth mAuth;
-    private Button editProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_profile);
 
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -47,24 +44,18 @@ public class UserProfile extends AppCompatActivity {
         mLastName = findViewById(R.id.user_last_name);
         mGraduationYear = findViewById(R.id.user_graduation_year);
         mEmail = findViewById(R.id.user_email);
-        editProfile = findViewById(R.id.edit_profile_button);
+        Button editProfile = findViewById(R.id.edit_profile_button);
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (mFirebaseUser == null) {
-                    startActivity(new Intent(UserProfile.this, LoginActivity.class));
-                    finish();
-                }
+        FirebaseAuth.AuthStateListener mAuthListener = firebaseAuth -> {
+            if (mFirebaseUser == null) {
+                startActivity(new Intent(UserProfile.this, LoginActivity.class));
+                finish();
             }
         };
 
-        editProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(UserProfile.this, UpdateUserProfile.class));
-                finish();
-            }
+        editProfile.setOnClickListener(view -> {
+            startActivity(new Intent(UserProfile.this, UpdateUserProfile.class));
+            finish();
         });
 
     }
@@ -85,6 +76,7 @@ public class UserProfile extends AppCompatActivity {
                 if (dataSnapshot.exists()){
                     UserInformation fetchedUserData = dataSnapshot.getValue(UserInformation.class);
 
+                    assert fetchedUserData != null;
                     mFirstName.setText(fetchedUserData.mFirstName.trim());
                     mLastName.setText(fetchedUserData.mLastName.trim());
                     mGraduationYear.setText(fetchedUserData.mGraduationYear.trim());

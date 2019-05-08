@@ -28,7 +28,6 @@ public class ProfileInventory extends Activity {
     TextView mUsername;
     TextView mRatingTitle, mRating, mFollowerTitle, mFollowerCount, mFollowingTitle, mFollowingCount;
     FloatingActionButton mFloatingButton;
-    private FirebaseAuth auth;
 
 
     @Override
@@ -39,7 +38,7 @@ public class ProfileInventory extends Activity {
         initializeViews();
         implementClickListener();
 
-        auth = FirebaseAuth.getInstance();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Log.i("debug", user.getEmail());
         mUsername.setText(user.getEmail());

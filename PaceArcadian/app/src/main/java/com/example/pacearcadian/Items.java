@@ -2,19 +2,19 @@ package com.example.pacearcadian;
 
 class Items {
 
-    String mTitle;
-    String mDescription;
+    private String mTitle;
+    private String mDescription;
 
-    public Items(String title, String description) {
+    Items(String title, String description) {
         mDescription = description;
         mTitle = title;
     }
 
-    public String getTitle() {
+    String getTitle() {
         return mTitle;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return mDescription;
     }
 }
