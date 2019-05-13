@@ -2,14 +2,17 @@ package com.example.pacearcadian;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -19,7 +22,10 @@ import android.widget.Toast;
 
 import com.example.pacearcadian.AccountActivity.LoginActivity;
 import com.example.pacearcadian.AccountActivity.SignUpActivity;
+import com.example.pacearcadian.AccountActivity.UploadImage;
 import com.example.pacearcadian.AccountActivity.UserInformation;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -29,7 +35,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,6 +55,9 @@ import android.support.v7.app.AlertDialog;
 import android.content.*;
 import android.app.Activity;
 import android.provider.MediaStore;
+
+import static com.squareup.picasso.Picasso.*;
+
 public class UpdateUserProfile extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
@@ -53,7 +65,10 @@ public class UpdateUserProfile extends AppCompatActivity {
     private EditText mFirstName, mLastName, mGraduationYear;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
-    static final int SELECT_PICTURE=1000;
+    private Uri imageUri;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private ImageView mImageView;
+    private StorageReference mStorageReference;
     Map<String, UserInformation> mUser = new HashMap<>();
 
     @Override
@@ -63,6 +78,7 @@ public class UpdateUserProfile extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
+        mStorageReference = FirebaseStorage.getInstance().getReference("uploads/");
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         Button btnSaveProfileInfo = findViewById(R.id.save_profile_button);
@@ -70,7 +86,7 @@ public class UpdateUserProfile extends AppCompatActivity {
         mLastName = findViewById(R.id.edit_user_last_name);
         mGraduationYear = findViewById(R.id.edit_user_graduation_year);
         Button mEditButton = findViewById(R.id.user_photo_button);
-        handlePermission();
+        mImageView = findViewById(R.id.user_photo);
         mAuthListener = firebaseAuth -> {
             if (mFirebaseUser == null) {
                 startActivity(new Intent(UpdateUserProfile.this, LoginActivity.class));
@@ -79,7 +95,7 @@ public class UpdateUserProfile extends AppCompatActivity {
         };
 
         mEditButton.setOnClickListener(view->{
-            openImageChooser();
+            openFileChooser();
         });
 
         btnSaveProfileInfo.setOnClickListener(view -> {
@@ -97,109 +113,22 @@ public class UpdateUserProfile extends AppCompatActivity {
         });
     }
 
-    //Code added by Rohan K for selecting the photo from External Storage;
-    private void handlePermission() {
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            //ask for permission
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    SELECT_PICTURE);
-        }
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == SELECT_PICTURE) {
-            for (int i = 0; i < permissions.length; i++) {
-                String permission = permissions[i];
-                if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
-                    boolean showRationale = ActivityCompat.shouldShowRequestPermissionRationale(this, permission);
-                    if (showRationale) {
-                        //  Show your own message here
-                    } else {
-                        showSettingsAlert();
-                    }
-                }
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    /* Choose an image from Gallery */
-    void openImageChooser() {
+    private void openFileChooser(){
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
+        startActivityForResult(intent,PICK_IMAGE_REQUEST);
     }
 
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==PICK_IMAGE_REQUEST && resultCode==RESULT_OK && data!=null && data.getData()!=null){
+            imageUri=data.getData();
+            Picasso.get().load(imageUri).into(mImageView);
 
-        new Thread(() -> {
-            if (resultCode == RESULT_OK) {
-                if (requestCode == SELECT_PICTURE) {
-                    // Get the url from data
-                    final Uri selectedImageUri = data.getData();
-                    if (null != selectedImageUri) {
-                        // Get the path from the Uri
-                        String path = getPathFromURI(selectedImageUri);
-                      // Log.i(TAG, "Image Path : " + path);
-                        // Set the image in ImageView
-                        findViewById(R.id.user_photo).post(() -> ((ImageView) findViewById(R.id.user_photo)).setImageURI(selectedImageUri));
-
-                    }
-                }
-            }
-        }).start();
-
-    }
-    public String getPathFromURI(Uri contentUri) {
-        String res = null;
-        String[] proj = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
-        assert cursor != null;
-        if (cursor.moveToFirst()) {
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            res = cursor.getString(column_index);
         }
-        cursor.close();
-        return res;
     }
-
-    private void showSettingsAlert() {
-
-        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("Alert");
-        alertDialog.setMessage("App needs to access the Camera.");
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "DONT ALLOW",
-                (dialog, which) -> {
-                    dialog.dismiss();
-                    //finish();
-                });
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "SETTINGS",
-                (dialog, which) -> {
-                    dialog.dismiss();
-                    openAppSettings(UpdateUserProfile.this);
-                });
-        alertDialog.show();
-
-    }
-    public static void openAppSettings(final Activity context) {
-        if (context == null) {
-            return;
-        }
-        final Intent i = new Intent();
-        i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        i.addCategory(Intent.CATEGORY_DEFAULT);
-        i.setData(Uri.parse("package:" + context.getPackageName()));
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-        context.startActivity(i);
-    }
-
 
     @Override
     public void onStart() {
@@ -231,12 +160,33 @@ public class UpdateUserProfile extends AppCompatActivity {
 
         return false;
     }
+    //Code to get the file extension
+    private String getFileExtension(Uri uri){
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(uri));
+    }
 
     public void updateProfileInfo(){
-
+//        StorageReference fileReference = mStorageReference.child(System.currentTimeMillis()+"."+getFileExtension(imageUri));
         mDatabase = mDatabase.child("/user-data/" + "/");
 
         mUser.put(mFirebaseUser.getUid(), new UserInformation(mFirstName.getText().toString().trim(), mLastName.getText().toString().trim(), mGraduationYear.getText().toString().trim(), mFirebaseUser.getEmail().trim()));
+    /*    fileReference.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        UploadImage uploadImage = new UploadImage(taskSnapshot.getStorage().getDownloadUrl().toString());
+                        String uploadId= mDatabase.push().getKey();
+                        mDatabase.child(uploadId).setValue(uploadImage);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });*/
         mDatabase.setValue(mUser);
 
         Toast.makeText(getApplicationContext(), getString(R.string.profile_updated), Toast.LENGTH_SHORT).show();

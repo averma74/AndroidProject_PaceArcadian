@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "846846679406-f6lmvftesem4mujvg2i6jq2fug63jjtt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pacearcadian",
+            "certificate_hash": "ee6460040a6a98267bd8b9f9a7849623c22d2c7f"
+          }
+        },
+        {
           "client_id": "846846679406-t0pp7m79l8ar0tt1070tpno7tiupfob8.apps.googleusercontent.com",
           "client_type": 3
         }

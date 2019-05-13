@@ -41,7 +41,7 @@ public class ProfileInventory extends Activity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Log.i("debug", user.getEmail());
-        mUsername.setText(user.getEmail());
+        mUsername.setText(user.getDisplayName());
         RecyclerView recyclerView = findViewById(R.id.inventoryFeed);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new InventoryRecyclerViewAdapter(this, mItem);
