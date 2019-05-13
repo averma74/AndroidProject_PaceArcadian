@@ -57,5 +57,5 @@
     <string name="graduation_year">Graduation Year:</string>
     <string name="email_text_view">Email:</string>
     <string name="inventory">INVENTORY</string>
-
+    <string name="tradeFeed">Trade Feed</string>
 </resources>
