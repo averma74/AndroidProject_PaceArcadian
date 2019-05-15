@@ -5,11 +5,13 @@ class Items {
     private String mTitle;
     private String mDescription;
     private String mCategory;
+    private String mUserId;
 
-    Items(String title, String description, String category) {
+    Items(String title, String description, String category, String userId) {
         mDescription = description;
         mTitle = title;
         mCategory = category;
+        mUserId = userId;
     }
 
     String getTitle() {
@@ -22,5 +24,9 @@ class Items {
 
     String getCategory() {
         return mCategory;
+    }
+
+    String getmUserId() {
+        return mUserId;
     }
 }

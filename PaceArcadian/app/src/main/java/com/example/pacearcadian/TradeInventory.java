@@ -8,8 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.example.pacearcadian.AccountActivity.AddItem;
-
 import java.util.ArrayList;
 
 public class TradeInventory extends Activity {
@@ -28,16 +26,18 @@ public class TradeInventory extends Activity {
         mAdapter = new TradeFeedRecyclerViewAdapter(this, mItem);
         recyclerView.setAdapter(mAdapter);
 
-        mHomeFloatingButton.setOnClickListener(v -> {
-            startActivity(new Intent(TradeInventory.this, MainActivity.class));
-        });
+        mHomeFloatingButton.setOnClickListener(v ->
+                startActivity(new Intent(TradeInventory.this, MainActivity.class)));
 
         addData();
     }
     private void addData() {
-        mItem.add(new TradeItems("Movie Ticket - Endgame","kulkarni.rohan619@gmail.com"));
-        mItem.add(new TradeItems("Book", "sanchita@gmail.com"));
-        mItem.add(new TradeItems("Shoes", "aditee@gmail.com"));
+
+        //get data from db put into mItem
+        mItem.add(new TradeItems("Movie Ticket - Endgame", "Endgame tickets available for 5/3/2019", "APPARELS", "test"));
+        mItem.add(new TradeItems("Book", "Cracking the coding interview", "BOOKS", "test"));
+        mItem.add(new TradeItems("Shoes", "Red shoes", "EATABLES", "test"));
+
 
         mAdapter.notifyDataSetChanged();
     }

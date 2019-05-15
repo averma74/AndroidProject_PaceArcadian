@@ -63,6 +63,8 @@
     <string name="back">BACK</string>
     <string name="go_back">GO BACK</string>
     <string name="category">Category:</string>
+    <string name="item_title">Item Title</string>
+    <string name="trade">Trade</string>
     <string-array name="category_array">
         <item>APPARELS</item>
         <item>BOOKS</item>

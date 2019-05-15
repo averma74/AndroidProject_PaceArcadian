@@ -7,18 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.example.pacearcadian.AccountActivity.AddItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-
-import static android.content.ContentValues.TAG;
 
 public class ProfileInventory extends Activity {
 
@@ -31,7 +24,7 @@ public class ProfileInventory extends Activity {
     //TextView mRatingTitle, mRating, mFollowerTitle, mFollowerCount, mFollowingTitle, mFollowingCount;
     FloatingActionButton mFloatingButton;
     FloatingActionButton mHomeFloatingButton;
-
+    private FirebaseUser mFirebaseUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,9 +34,10 @@ public class ProfileInventory extends Activity {
         initializeViews();
         implementClickListener();
 
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        Log.i("debug", user.getEmail());
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mAuth.getCurrentUser();
+        //final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //Log.i("debug", user.getEmail());
         //mUsername.setText(user.getDisplayName());
         RecyclerView recyclerView = findViewById(R.id.inventoryFeed);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -53,17 +47,21 @@ public class ProfileInventory extends Activity {
     }
 
     private void addData() {
-        mItem.add(new Items("Movie Ticket - Endgame", "Endgame tickets available for 5/3/2019", "APPARELS"));
-        mItem.add(new Items("Book", "Cracking the coding interview", "BOOKS"));
-        mItem.add(new Items("Shoes", "Red shoes", "EATABLES"));
-        mItem.add(new Items("Notes for Android", "Kachi's class notes", "ELECTRONICS"));
-        mItem.add(new Items("Movie Ticket - Endgame", "Endgame tickets available for 5/3/2019", "FASHION ACCESSORIES"));
-        mItem.add(new Items("Book", "Cracking the coding interview", "FURNITURE"));
-        mItem.add(new Items("Shoes", "Red shoes", "MEDIA"));
-        mItem.add(new Items("Notes for Android", "Kachi's class notes", "SHOES"));
-        mItem.add(new Items("Movie Ticket - Endgame", "Endgame tickets available for 5/3/2019", "SPORTS"));
-        mItem.add(new Items("Book", "Cracking the coding interview", "TICKETS"));
-        mItem.add(new Items("Shoes", "Red shoes", "OTHER"));
+
+        //Retrieve from DB & put in mItem
+
+
+        mItem.add(new Items("Movie Ticket - Endgame", "Endgame tickets available for 5/3/2019", "APPARELS", "test"));
+        mItem.add(new Items("Book", "Cracking the coding interview", "BOOKS", "test"));
+        mItem.add(new Items("Shoes", "Red shoes", "EATABLES", "test"));
+        mItem.add(new Items("Notes for Android", "Kachi's class notes", "ELECTRONICS", "test"));
+        mItem.add(new Items("Movie Ticket - Endgame", "Endgame tickets available for 5/3/2019", "FASHION ACCESSORIES", "test"));
+        mItem.add(new Items("Book", "Cracking the coding interview", "FURNITURE", "test"));
+        mItem.add(new Items("Shoes", "Red shoes", "MEDIA", "test"));
+        mItem.add(new Items("Notes for Android", "Kachi's class notes", "SHOES", "test"));
+        mItem.add(new Items("Movie Ticket - Endgame", "Endgame tickets available for 5/3/2019", "SPORTS", "test"));
+        mItem.add(new Items("Book", "Cracking the coding interview", "TICKETS", "test"));
+        mItem.add(new Items("Shoes", "Red shoes", "OTHER", "test"));
         mAdapter.notifyDataSetChanged();
     }
 
@@ -87,7 +85,11 @@ public class ProfileInventory extends Activity {
             String desc = data.getStringExtra(AddItem.EXTRA_MESSAGE_DESCRIPTION);
             String category = data.getStringExtra(AddItem.EXTRA_MESSAGE_CATEGORY);
             //add it to recycler view
-            mItem.add(new Items(title, desc, category));
+            mItem.add(new Items(title, desc, category, mFirebaseUser.getUid()));
+
+            //Add mItem to DB
+
+
             mAdapter.notifyDataSetChanged();
         }
     }

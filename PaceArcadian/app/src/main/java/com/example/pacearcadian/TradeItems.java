@@ -2,11 +2,15 @@ package com.example.pacearcadian;
 
 public class TradeItems {
     private String mTitle;
-    private String mUsername;
+    private String mDescription;
+    private String mCategory;
+    private String mUserId;
 
-    TradeItems(String title, String Username) {
-        mUsername = Username;
+    TradeItems(String title, String description, String category, String userId) {
+        mDescription = description;
         mTitle = title;
+        mCategory = category;
+        mUserId = userId;
     }
 
     String getTitle() {
@@ -14,6 +18,14 @@ public class TradeItems {
     }
 
     String getDescription() {
-        return mUsername;
+        return mDescription;
+    }
+
+    String getCategory() {
+        return mCategory;
+    }
+
+    String getmUserId() {
+        return mUserId;
     }
 }

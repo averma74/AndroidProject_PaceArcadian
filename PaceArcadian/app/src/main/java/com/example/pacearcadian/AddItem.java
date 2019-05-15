@@ -1,4 +1,4 @@
-package com.example.pacearcadian.AccountActivity;
+package com.example.pacearcadian;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

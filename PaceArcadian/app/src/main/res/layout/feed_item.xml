@@ -21,27 +21,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/item_image"
-            android:layout_marginStart="10dp"
-            android:textSize="30sp"
-            android:text="Item Title"/>
+            android:layout_margin="10dp"
+            android:textSize="30sp"/>
 
         <TextView
-            android:id="@+id/username"
+            android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/title"
             android:layout_toEndOf="@id/item_image"
             android:layout_marginStart="10dp"
-            android:textSize="16sp"
-            android:text="Sample Username"/>
+            android:textSize="16sp"/>
         <Button
             android:id="@+id/tradeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/username"
+            android:layout_below="@id/description"
             android:layout_toEndOf="@id/item_image"
             android:layout_marginStart="10dp"
             android:textSize="16sp"
-            android:text="Trade"/>
+            android:text="@string/trade"/>
+
     </RelativeLayout>
 </RelativeLayout>
