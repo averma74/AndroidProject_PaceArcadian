@@ -29,6 +29,7 @@
         <activity android:name=".UpdateUserProfile" />
         <activity android:name=".TradeInventory" />
         <activity android:name=".AddItem" />
+        <activity android:name=".TradeFunctionalityActivity" />
     </application>
 
 </manifest>
