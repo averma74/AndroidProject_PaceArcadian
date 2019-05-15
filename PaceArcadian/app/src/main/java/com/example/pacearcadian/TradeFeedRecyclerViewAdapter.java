@@ -1,9 +1,11 @@
 package com.example.pacearcadian;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +32,8 @@ public class TradeFeedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
        recyclerViewHolder.mTitle.setText(inventoryItem.getTitle());
        recyclerViewHolder.mDescription.setText(inventoryItem.getDescription());
 
+       recyclerViewHolder.mTradeButton.setOnClickListener(v ->
+               mContext.startActivity(new Intent(mContext, TradeFunctionalityActivity.class)));
 
         //if category is different
         recyclerViewHolder.mImageView.setImageResource(R.drawable.other);
@@ -81,12 +85,14 @@ public class TradeFeedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         TextView mTitle;
         TextView mDescription;
         ImageView mImageView;
+        Button mTradeButton;
 
         RecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
             mTitle = itemView.findViewById(R.id.title);
             mDescription = itemView.findViewById(R.id.description);
             mImageView = itemView.findViewById(R.id.item_image);
+            mTradeButton = itemView.findViewById(R.id.tradeButton);
         }
     }
 }

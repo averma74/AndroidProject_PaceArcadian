@@ -26,11 +26,16 @@ public class TradeInventory extends Activity {
         mAdapter = new TradeFeedRecyclerViewAdapter(this, mItem);
         recyclerView.setAdapter(mAdapter);
 
+        addData();
+        buttonClickListeners();
+    }
+
+    private void buttonClickListeners() {
         mHomeFloatingButton.setOnClickListener(v ->
                 startActivity(new Intent(TradeInventory.this, MainActivity.class)));
 
-        addData();
     }
+
     private void addData() {
 
         //get data from db put into mItem
