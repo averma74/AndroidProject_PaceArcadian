@@ -12,20 +12,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".TradeRequested"></activity>
+        <activity android:name=".TradeRequests" />
         <activity android:name=".AccountActivity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".AccountActivity.ResetPasswordActivity" />
         <activity android:name=".AccountActivity.SignUpActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".ProfileInventory"/>
-        <activity android:name=".UserProfile"/>
-        <activity android:name=".UpdateUserProfile"/>
-        <activity android:name=".TradeInventory"/>
-        <activity android:name=".AddItem"/>
+        <activity android:name=".ProfileInventory" />
+        <activity android:name=".UserProfile" />
+        <activity android:name=".UpdateUserProfile" />
+        <activity android:name=".TradeInventory" />
+        <activity android:name=".AddItem" />
     </application>
 
 </manifest>

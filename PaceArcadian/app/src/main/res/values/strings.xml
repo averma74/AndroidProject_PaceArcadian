@@ -65,6 +65,10 @@
     <string name="category">Category:</string>
     <string name="item_title">Item Title</string>
     <string name="trade">Trade</string>
+    <string name="trade_manager">Trade Manager</string>
+    <string name="trade_requests">Trade Requests</string>
+    <string name="trades_requested">Trades Requested</string>
+    <string name="no_trade_requests">No Trade Requests</string>
     <string-array name="category_array">
         <item>APPARELS</item>
         <item>BOOKS</item>

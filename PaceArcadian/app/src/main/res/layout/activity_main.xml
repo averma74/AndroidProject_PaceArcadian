@@ -118,6 +118,30 @@
         android:textStyle="bold"
         tools:layout_editor_absoluteX="42dp"
         tools:layout_editor_absoluteY="312dp"
+        android:layout_above="@+id/trade_request_button"
+        android:layout_alignStart="@+id/profile_button" />
+
+    <Button
+        android:id="@+id/trade_request_button"
+        style="?android:textAppearanceSmall"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/trade_requests"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="312dp"
+        android:layout_above="@+id/trade_requested_button"
+        android:layout_alignStart="@+id/profile_button" />
+
+    <Button
+        android:id="@+id/trade_requested_button"
+        style="?android:textAppearanceSmall"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/trades_requested"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="312dp"
         android:layout_above="@+id/profile_button"
         android:layout_alignStart="@+id/profile_button" />
 

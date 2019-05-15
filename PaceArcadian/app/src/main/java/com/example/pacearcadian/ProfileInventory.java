@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -18,6 +20,8 @@ public class ProfileInventory extends Activity {
     ArrayList<Items> mItem = new ArrayList<>();
     private InventoryRecyclerViewAdapter mAdapter;
     private final int ACTIVITY_REQUEST_CODE = 1;
+    private static String ID = "";
+    DatabaseReference mDatabaseReference;
 
     //ImageView mProfileImage;
     //TextView mUsername;
@@ -36,6 +40,11 @@ public class ProfileInventory extends Activity {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
+
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //Log.i("debug", user.getEmail());
+        ID = user.getUid();
+
         //final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         //Log.i("debug", user.getEmail());
         //mUsername.setText(user.getDisplayName());
@@ -50,18 +59,18 @@ public class ProfileInventory extends Activity {
 
         //Retrieve from DB & put in mItem
 
-
-        mItem.add(new Items("Movie Ticket - Endgame", "Endgame tickets available for 5/3/2019", "APPARELS", "test"));
-        mItem.add(new Items("Book", "Cracking the coding interview", "BOOKS", "test"));
-        mItem.add(new Items("Shoes", "Red shoes", "EATABLES", "test"));
-        mItem.add(new Items("Notes for Android", "Kachi's class notes", "ELECTRONICS", "test"));
-        mItem.add(new Items("Movie Ticket - Endgame", "Endgame tickets available for 5/3/2019", "FASHION ACCESSORIES", "test"));
-        mItem.add(new Items("Book", "Cracking the coding interview", "FURNITURE", "test"));
-        mItem.add(new Items("Shoes", "Red shoes", "MEDIA", "test"));
-        mItem.add(new Items("Notes for Android", "Kachi's class notes", "SHOES", "test"));
-        mItem.add(new Items("Movie Ticket - Endgame", "Endgame tickets available for 5/3/2019", "SPORTS", "test"));
-        mItem.add(new Items("Book", "Cracking the coding interview", "TICKETS", "test"));
-        mItem.add(new Items("Shoes", "Red shoes", "OTHER", "test"));
+//
+//        mItem.add(new Items("Movie Ticket - Endgame", "Endgame tickets available for 5/3/2019", "APPARELS", "test"));
+//        mItem.add(new Items("Book", "Cracking the coding interview", "BOOKS", "test"));
+//        mItem.add(new Items("Shoes", "Red shoes", "EATABLES", "test"));
+//        mItem.add(new Items("Notes for Android", "Kachi's class notes", "ELECTRONICS", "test"));
+//        mItem.add(new Items("Movie Ticket - Endgame", "Endgame tickets available for 5/3/2019", "FASHION ACCESSORIES", "test"));
+//        mItem.add(new Items("Book", "Cracking the coding interview", "FURNITURE", "test"));
+//        mItem.add(new Items("Shoes", "Red shoes", "MEDIA", "test"));
+//        mItem.add(new Items("Notes for Android", "Kachi's class notes", "SHOES", "test"));
+//        mItem.add(new Items("Movie Ticket - Endgame", "Endgame tickets available for 5/3/2019", "SPORTS", "test"));
+//        mItem.add(new Items("Book", "Cracking the coding interview", "TICKETS", "test"));
+//        mItem.add(new Items("Shoes", "Red shoes", "OTHER", "test"));
         mAdapter.notifyDataSetChanged();
     }
 
@@ -86,6 +95,9 @@ public class ProfileInventory extends Activity {
             String category = data.getStringExtra(AddItem.EXTRA_MESSAGE_CATEGORY);
             //add it to recycler view
             mItem.add(new Items(title, desc, category, mFirebaseUser.getUid()));
+            mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("inventory");
+            mDatabaseReference.child(ID).setValue(mItem);
+            //mDatabaseReference.push().child("description").setValue(desc);
 
             //Add mItem to DB
 

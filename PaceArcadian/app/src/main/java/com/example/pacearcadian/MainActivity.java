@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         Button profile = findViewById(R.id.profile_button);
         Button inventory = findViewById(R.id.profile_inventory_button);
         Button tradeFeed = findViewById(R.id.trade_feed_button);
+        Button tradeRequests = findViewById(R.id.trade_request_button);
+        Button tradesRequested = findViewById(R.id.trade_requested_button);
         oldEmail = findViewById(R.id.old_email);
         password = findViewById(R.id.password);
         newPassword = findViewById(R.id.newPassword);
@@ -137,6 +139,15 @@ public class MainActivity extends AppCompatActivity {
         });
         tradeFeed.setOnClickListener(view->{
             startActivity(new Intent(MainActivity.this,TradeInventory.class));
+            finish();
+        });
+        tradeRequests.setOnClickListener(view->{
+            startActivity(new Intent(MainActivity.this,TradeRequests.class));
+            finish();
+        });
+        tradesRequested.setOnClickListener(view->{
+            startActivity(new Intent(MainActivity.this,TradeRequested.class));
+            finish();
         });
 
     }
