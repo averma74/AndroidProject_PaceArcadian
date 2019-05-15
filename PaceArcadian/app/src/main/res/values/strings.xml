@@ -58,4 +58,22 @@
     <string name="email_text_view">Email:</string>
     <string name="inventory">INVENTORY</string>
     <string name="tradeFeed">Trade Feed</string>
+    <string name="home">HOME</string>
+    <string name="cancel">CANCEL</string>
+    <string name="back">BACK</string>
+    <string name="go_back">GO BACK</string>
+    <string name="category">Category:</string>
+    <string-array name="category_array">
+        <item>APPARELS</item>
+        <item>BOOKS</item>
+        <item>EATABLES</item>
+        <item>ELECTRONICS</item>
+        <item>FASHION ACCESSORIES</item>
+        <item>FURNITURE</item>
+        <item>MEDIA</item>
+        <item>SHOES</item>
+        <item>SPORTS</item>
+        <item>TICKETS</item>
+        <item>OTHER</item>
+    </string-array>
 </resources>

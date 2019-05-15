@@ -28,9 +28,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/item_image"
-            android:layout_marginStart="10dp"
-            android:textSize="30sp"
-            android:text="Test Title"/>
+            android:layout_margin="10dp"
+            android:textSize="30sp"/>
 
         <TextView
             android:id="@+id/description"
@@ -39,13 +38,9 @@
             android:layout_below="@id/title"
             android:layout_toEndOf="@id/item_image"
             android:layout_marginStart="10dp"
-            android:textSize="16sp"
-            android:text="Test Description"/>
+            android:textSize="16sp"/>
 
     </RelativeLayout>
-
-
-
 
 
 </RelativeLayout>

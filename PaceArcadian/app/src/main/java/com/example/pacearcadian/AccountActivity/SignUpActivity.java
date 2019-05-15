@@ -19,12 +19,23 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.example.pacearcadian.R;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText inputEmail, inputPassword;     //hit option + enter if you on mac , for windows hit ctrl + enter
     private ProgressBar progressBar;
     private FirebaseAuth auth;
+    private EditText mFirstName, mLastName, mGraduationYear;
+    Map<String, UserInformation> mUser = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +50,9 @@ public class SignUpActivity extends AppCompatActivity {
         inputPassword = findViewById(R.id.password);
         progressBar = findViewById(R.id.progressBar);
         Button btnResetPassword = findViewById(R.id.btn_reset_password);
+        mFirstName = findViewById(R.id.edit_user_first_name);
+        mLastName = findViewById(R.id.edit_user_last_name);
+        mGraduationYear = findViewById(R.id.edit_user_graduation_year);
 
         btnResetPassword.setOnClickListener(v ->
                 startActivity(new Intent(SignUpActivity.this, ResetPasswordActivity.class)));
@@ -49,6 +63,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             String email = inputEmail.getText().toString().trim();
             String password = inputPassword.getText().toString().trim();
+
 
             if (TextUtils.isEmpty(email)) {
                 Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
@@ -65,6 +80,14 @@ public class SignUpActivity extends AppCompatActivity {
                 return;
             }
 
+            String inputGraduationYear = mGraduationYear.getText().toString().trim();
+
+            if (mFirstName.getText().toString().isEmpty() || mLastName.getText().toString().isEmpty() ||
+                    mGraduationYear.getText().toString().isEmpty()) {
+                Toast.makeText(getApplicationContext(), getString(R.string.fields_required), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             progressBar.setVisibility(View.VISIBLE);
             //create user
             auth.createUserWithEmailAndPassword(email, password)
@@ -77,12 +100,40 @@ public class SignUpActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Toast.makeText(SignUpActivity.this, "Authentication failed." + task.getException(),
                                     Toast.LENGTH_SHORT).show();
-                        } else {
+                        } else if(validateGraduationYear(inputGraduationYear)){
+                            updateProfileInfo();
                             startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                             finish();
                         }
                     });
         });
+    }
+
+    private void updateProfileInfo() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("user-data");
+        mUser.put(firebaseUser.getUid(), new UserInformation(mFirstName.getText().toString().trim(),
+                mLastName.getText().toString().trim(), mGraduationYear.getText().toString().trim(),
+                firebaseUser.getEmail()));
+        myRef.child(firebaseUser.getUid()).setValue(mUser);
+    }
+
+    public boolean validateGraduationYear(String graduationYear){
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy");
+
+        try {
+            format.parse(graduationYear);
+        } catch (ParseException e) {
+            return false;
+        }
+        if(Integer.parseInt(graduationYear) >= Calendar.getInstance().get(Calendar.YEAR))
+            return true;
+
+        Toast.makeText(getApplicationContext(), getString(R.string.invalid_graduation_year), Toast.LENGTH_SHORT).show();
+
+        return false;
     }
 
     @Override

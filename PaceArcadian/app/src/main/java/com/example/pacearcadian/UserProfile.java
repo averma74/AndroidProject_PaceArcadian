@@ -45,16 +45,22 @@ public class UserProfile extends AppCompatActivity {
         mGraduationYear = findViewById(R.id.user_graduation_year);
         mEmail = findViewById(R.id.user_email);
         Button editProfile = findViewById(R.id.edit_profile_button);
+        Button goToHome = findViewById(R.id.go_back_button);
 
-        FirebaseAuth.AuthStateListener mAuthListener = firebaseAuth -> {
-            if (mFirebaseUser == null) {
-                startActivity(new Intent(UserProfile.this, LoginActivity.class));
-                finish();
-            }
-        };
+//        FirebaseAuth.AuthStateListener mAuthListener = firebaseAuth -> {
+//            if (mFirebaseUser == null) {
+//                startActivity(new Intent(UserProfile.this, LoginActivity.class));
+//                finish();
+//            }
+//        };
 
         editProfile.setOnClickListener(view -> {
             startActivity(new Intent(UserProfile.this, UpdateUserProfile.class));
+            finish();
+        });
+
+        goToHome.setOnClickListener(view -> {
+            startActivity(new Intent(UserProfile.this, MainActivity.class));
             finish();
         });
 
@@ -67,7 +73,7 @@ public class UserProfile extends AppCompatActivity {
     }
 
     private void getProfileInfo() {
-        mDatabase = mDatabase.child("/user-data/" + "/" + mFirebaseUser.getUid() + "/");
+        mDatabase = mDatabase.child("/user-data/" + mFirebaseUser.getUid()  + "/" + mFirebaseUser.getUid() + "/");
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override

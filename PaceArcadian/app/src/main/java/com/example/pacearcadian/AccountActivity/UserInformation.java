@@ -7,6 +7,7 @@ public class UserInformation {
     public String mGraduationYear;
     public String mReputation;
     public String mEmail;
+    //public int mUserId;
 
     public UserInformation() {
 
@@ -17,5 +18,6 @@ public class UserInformation {
         this.mLastName = lastName;
         this.mGraduationYear = graduationYear;
         this.mEmail = email;
+        //this.mUserId = userId;
     }
 }

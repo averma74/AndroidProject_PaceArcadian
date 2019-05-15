@@ -4,10 +4,12 @@ class Items {
 
     private String mTitle;
     private String mDescription;
+    private String mCategory;
 
-    Items(String title, String description) {
+    Items(String title, String description, String category) {
         mDescription = description;
         mTitle = title;
+        mCategory = category;
     }
 
     String getTitle() {
@@ -16,5 +18,9 @@ class Items {
 
     String getDescription() {
         return mDescription;
+    }
+
+    String getCategory() {
+        return mCategory;
     }
 }

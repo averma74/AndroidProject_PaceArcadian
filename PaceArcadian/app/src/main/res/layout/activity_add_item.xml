@@ -11,10 +11,28 @@
         android:layout_margin="15dp">
 
         <TextView
+            android:id="@+id/item_Category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/category"
+            android:layout_margin="15dp"
+            android:layout_marginTop="15dp"
+            android:textSize="20sp"/>
+
+        <Spinner
+            android:id="@+id/category_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_Category"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
             android:id="@+id/item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title"
+            android:layout_below="@id/category_spinner"
             android:layout_margin="15dp"
             android:layout_marginTop="15dp"
             android:textSize="20sp"/>
@@ -56,6 +74,13 @@
         android:layout_marginTop="20dp"
         android:text="@string/save_item"
         android:onClick="onSaveButtonClicked"/>
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="@string/cancel"
+        android:onClick="onCancelButtonClicked"/>
 
 
 </LinearLayout>

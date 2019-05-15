@@ -4,30 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserProfile"
-    android:gravity="center"
     android:padding="@dimen/activity_horizontal_margin"
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="250dp"
-        android:layout_height= "250dp"
+        android:layout_width="200dp"
+        android:layout_height= "200dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="30dp"
         android:src="@drawable/ic_launcher_profile"
         android:contentDescription=""
         tools:ignore="ContentDescription"
-        android:id="@+id/user_photo"
-        />
+        android:id="@+id/user_photo"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:id="@+id/user_photo_button"
-        android:background="@color/colorAccent"
         android:text="@string/btn_edit_photo"
         android:textColor="@android:color/black"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold"/>
     <EditText
         android:id="@+id/edit_user_first_name"
         android:layout_width="match_parent"
@@ -66,6 +61,15 @@
         android:layout_marginTop="16dp"
         android:background="@color/colorAccent"
         android:text="@string/btn_save_profile"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+    <Button
+        android:id="@+id/cancel_button"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/cancel"
         android:textColor="@android:color/black"
         android:textStyle="bold" />
 

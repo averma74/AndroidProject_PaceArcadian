@@ -5,146 +5,152 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/profile"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="15dp">
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/profile"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="150dp"-->
+        <!--android:layout_marginTop="15dp">-->
 
-        <ImageView
-            android:id="@+id/profile_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_add_a_photo_black_24dp"/>
+        <!--<ImageView-->
+            <!--android:id="@+id/profile_image"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:src="@drawable/ic_add_a_photo_black_24dp"/>-->
 
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:textSize="15sp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/profile_image"
-            android:text="@string/user_first_name"
-            />
+        <!--<TextView-->
+            <!--android:id="@+id/username"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:textSize="15sp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_below="@id/profile_image"-->
+            <!--android:text="@string/user_first_name"-->
+            <!--/>-->
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
 
-    <LinearLayout
-        android:id="@+id/profile_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/profile"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:weightSum="3">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/profile_info"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/profile"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:weightSum="3">-->
 
-        <LinearLayout
-            android:id="@+id/first_tab"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/first_tab"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:orientation="vertical">-->
 
-            <TextView
-                android:id="@+id/rating_tab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily="sans-serif-thick"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="@string/rating"/>
+            <!--<TextView-->
+                <!--android:id="@+id/rating_tab"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:fontFamily="sans-serif-thick"-->
+                <!--android:textColor="@color/colorPrimaryDark"-->
+                <!--android:text="@string/rating"/>-->
 
-            <TextView
-                android:id="@+id/rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily="sans-serif-thick"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="4.5"/>
+            <!--<TextView-->
+                <!--android:id="@+id/rating"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:fontFamily="sans-serif-thick"-->
+                <!--android:textColor="@color/colorPrimaryDark"-->
+                <!--android:text="4.5"/>-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-        <LinearLayout
-            android:id="@+id/second_tab"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/second_tab"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:orientation="vertical">-->
 
-            <TextView
-                android:id="@+id/following_tab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily="sans-serif-thick"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="@string/following"/>
+            <!--<TextView-->
+                <!--android:id="@+id/following_tab"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:fontFamily="sans-serif-thick"-->
+                <!--android:textColor="@color/colorPrimaryDark"-->
+                <!--android:text="@string/following"/>-->
 
-            <TextView
-                android:id="@+id/following_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily="sans-serif-thick"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="10"/>
+            <!--<TextView-->
+                <!--android:id="@+id/following_count"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:fontFamily="sans-serif-thick"-->
+                <!--android:textColor="@color/colorPrimaryDark"-->
+                <!--android:text="10"/>-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-        <LinearLayout
-            android:id="@+id/third_tab"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/third_tab"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:orientation="vertical">-->
 
-            <TextView
-                android:id="@+id/follower_tab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily="sans-serif-thick"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="@string/followers"/>
+            <!--<TextView-->
+                <!--android:id="@+id/follower_tab"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:fontFamily="sans-serif-thick"-->
+                <!--android:textColor="@color/colorPrimaryDark"-->
+                <!--android:text="@string/followers"/>-->
 
-            <TextView
-                android:id="@+id/follower_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily="sans-serif-thick"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="4"/>
+            <!--<TextView-->
+                <!--android:id="@+id/follower_count"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:fontFamily="sans-serif-thick"-->
+                <!--android:textColor="@color/colorPrimaryDark"-->
+                <!--android:text="4"/>-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/inventoryFeed"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/profile_info">
-
+        android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
+        android:layout_above="@+id/home"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_add_black_24dp">
+    </android.support.design.widget.FloatingActionButton>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="10dp"
         android:layout_gravity="end|bottom"
-        android:src="@drawable/ic_add_black_24dp">
+        android:src="@drawable/ic_home_black_24dp">
     </android.support.design.widget.FloatingActionButton>
-
-
 </RelativeLayout>

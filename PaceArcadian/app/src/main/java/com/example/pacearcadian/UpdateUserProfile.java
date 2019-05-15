@@ -61,6 +61,7 @@ import static com.squareup.picasso.Picasso.*;
 public class UpdateUserProfile extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
+    //FirebaseDatabase firebaseDatabase;
     private FirebaseUser mFirebaseUser;
     private EditText mFirstName, mLastName, mGraduationYear;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -85,8 +86,10 @@ public class UpdateUserProfile extends AppCompatActivity {
         mFirstName = findViewById(R.id.edit_user_first_name);
         mLastName = findViewById(R.id.edit_user_last_name);
         mGraduationYear = findViewById(R.id.edit_user_graduation_year);
-        Button mEditButton = findViewById(R.id.user_photo_button);
+        Button editButton = findViewById(R.id.user_photo_button);
+        Button cancelAction = findViewById(R.id.cancel_button);
         mImageView = findViewById(R.id.user_photo);
+
         mAuthListener = firebaseAuth -> {
             if (mFirebaseUser == null) {
                 startActivity(new Intent(UpdateUserProfile.this, LoginActivity.class));
@@ -94,8 +97,11 @@ public class UpdateUserProfile extends AppCompatActivity {
             }
         };
 
-        mEditButton.setOnClickListener(view->{
-            openFileChooser();
+        editButton.setOnClickListener(view-> openFileChooser());
+
+        cancelAction.setOnClickListener(view -> {
+            startActivity(new Intent(UpdateUserProfile.this, UserProfile.class));
+            finish();
         });
 
         btnSaveProfileInfo.setOnClickListener(view -> {
@@ -107,7 +113,7 @@ public class UpdateUserProfile extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), getString(R.string.fields_required), Toast.LENGTH_SHORT).show();
 
-            } else if(validateGraduationYear(inputGraduationYear) && (mUser != null)){
+            } else if(validateGraduationYear(inputGraduationYear)){
                 updateProfileInfo();
             }
         });
@@ -169,9 +175,30 @@ public class UpdateUserProfile extends AppCompatActivity {
 
     public void updateProfileInfo(){
 //        StorageReference fileReference = mStorageReference.child(System.currentTimeMillis()+"."+getFileExtension(imageUri));
-        mDatabase = mDatabase.child("/user-data/" + "/");
 
-        mUser.put(mFirebaseUser.getUid(), new UserInformation(mFirstName.getText().toString().trim(), mLastName.getText().toString().trim(), mGraduationYear.getText().toString().trim(), mFirebaseUser.getEmail().trim()));
+        //FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("user-data");
+
+        //String id = myRef.push().getKey();
+
+//        UserInformation info = new UserInformation(mFirstName.getText().toString().trim(),
+//                mLastName.getText().toString().trim(), mGraduationYear.getText().toString().trim(),
+//                mFirebaseUser.getEmail());
+
+//        myRef.child(id).child("firstName").setValue(mFirstName.getText().toString().trim());
+//        myRef.child(id).child("firstName").setValue(mFirstName.getText().toString().trim());
+
+
+        //mDatabase = FirebaseDatabase.getInstance().getReference();
+        //mDatabase = mDatabase.child("/user-data/" + mFirebaseUser.getUid() + "/");
+
+        mUser.put(mFirebaseUser.getUid(), new UserInformation(mFirstName.getText().toString().trim(),
+                mLastName.getText().toString().trim(), mGraduationYear.getText().toString().trim(),
+                mFirebaseUser.getEmail()));
+
+        myRef.child(mFirebaseUser.getUid()).setValue(mUser);
+        //mDatabase.setValue(mUser);
+
     /*    fileReference.putFile(imageUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -187,7 +214,6 @@ public class UpdateUserProfile extends AppCompatActivity {
 
                     }
                 });*/
-        mDatabase.setValue(mUser);
 
         Toast.makeText(getApplicationContext(), getString(R.string.profile_updated), Toast.LENGTH_SHORT).show();
         startActivity(new Intent(UpdateUserProfile.this, MainActivity.class));

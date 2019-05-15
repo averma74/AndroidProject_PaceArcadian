@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class TradeFeedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
-    private ArrayList<TradeItems> mItemsList = new ArrayList<>();
+    private ArrayList<TradeItems> mItemsList;
     TradeFeedRecyclerViewAdapter(Context context, ArrayList<TradeItems> items) {
         mContext = context;
         mItemsList = items;

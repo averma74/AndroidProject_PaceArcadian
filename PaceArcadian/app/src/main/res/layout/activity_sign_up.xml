@@ -22,7 +22,6 @@
             android:contentDescription=""
             tools:ignore="ContentDescription" />
 
-
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
@@ -44,6 +43,37 @@
             android:maxLines="1"
             android:textColor="@android:color/black"
             tools:ignore="InvalidImeActionId" />
+
+        <EditText
+            android:id="@+id/edit_user_first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/user_first_name"
+            android:inputType="text"
+            android:maxLength="20"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray" />
+        <EditText
+            android:id="@+id/edit_user_last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/user_last_name"
+            android:inputType="text"
+            android:maxLength="20"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray" />
+        <EditText
+            android:id="@+id/edit_user_graduation_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:maxLength="4"
+            android:hint="@string/user_graduation_year"
+            android:inputType="number"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray" />
 
         <Button
             android:id="@+id/sign_up_button"

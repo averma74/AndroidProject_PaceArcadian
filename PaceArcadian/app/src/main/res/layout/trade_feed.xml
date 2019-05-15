@@ -4,30 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/SearchBar"
-        >
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/SearchBar"-->
+        <!--&gt;-->
 
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <!--<SearchView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
 
-            ></SearchView>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/SearchBar"
-        >
+            <!--&gt;</SearchView>-->
+    <!--</RelativeLayout>-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/tradeFeeds"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
+            android:layout_height="match_parent">
         </android.support.v7.widget.RecyclerView>
-    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_home_black_24dp">
+    </android.support.design.widget.FloatingActionButton>
 
 </RelativeLayout>
