@@ -2,31 +2,35 @@ package com.example.pacearcadian;
 
 class Items {
 
-    private String mTitle;
-    private String mDescription;
-    private String mCategory;
-    private String mUserId;
+    private String title;
+    private String description;
+    private String category;
+    private String userId;
+
+    public Items(){
+
+    }
 
     Items(String title, String description, String category, String userId) {
-        mDescription = description;
-        mTitle = title;
-        mCategory = category;
-        mUserId = userId;
+        this.description = description;
+        this.title = title;
+        this.category = category;
+        this.userId = userId;
     }
 
     String getTitle() {
-        return mTitle;
+        return title;
     }
 
     String getDescription() {
-        return mDescription;
+        return description;
     }
 
     String getCategory() {
-        return mCategory;
+        return category;
     }
 
-    String getmUserId() {
-        return mUserId;
+    String getUserId() {
+        return userId;
     }
 }
