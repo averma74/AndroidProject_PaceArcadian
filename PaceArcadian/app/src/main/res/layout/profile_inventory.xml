@@ -127,7 +127,17 @@
 
     <!--</LinearLayout>-->
 
+    <TextView
+        android:id="@+id/list_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/inventory_list_is_empty"
+        android:textSize="30sp"
+        android:visibility="gone"
+        android:gravity="center"/>
+
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/list_empty"
         android:id="@+id/inventoryFeed"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

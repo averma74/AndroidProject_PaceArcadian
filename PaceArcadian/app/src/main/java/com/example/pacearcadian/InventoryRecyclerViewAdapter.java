@@ -12,12 +12,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-
 public class InventoryRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
     private ArrayList<Items> mItemsList;
-
 
     InventoryRecyclerViewAdapter(Context context, ArrayList<Items> items) {
         mContext = context;

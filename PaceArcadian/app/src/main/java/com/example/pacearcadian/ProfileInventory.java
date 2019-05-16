@@ -8,6 +8,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.pacearcadian.AccountActivity.UserInformation;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,6 +39,7 @@ public class ProfileInventory extends Activity {
     FloatingActionButton mFloatingButton;
     FloatingActionButton mHomeFloatingButton;
     private FirebaseUser mFirebaseUser;
+    private TextView mEmptyListText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,8 +60,10 @@ public class ProfileInventory extends Activity {
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                mFetchedItems = new ArrayList<Items>();
+                mFetchedItems = new ArrayList<>();
+                mEmptyListText.setVisibility(View.VISIBLE);
                 if(dataSnapshot.exists()){
+                    mEmptyListText.setVisibility(View.GONE);
                     for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren() ){
                            Items inventoryItems = dataSnapshot1.getValue(Items.class);
                             mFetchedItems.add(inventoryItems);
@@ -66,12 +71,10 @@ public class ProfileInventory extends Activity {
                     mAdapter = new InventoryRecyclerViewAdapter(ProfileInventory.this, mFetchedItems);
                     recyclerView.setAdapter(mAdapter);
                 }
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
 
@@ -122,5 +125,6 @@ public class ProfileInventory extends Activity {
 //        mFollowingCount = findViewById(R.id.following_count);
         mFloatingButton = findViewById(R.id.fab);
         mHomeFloatingButton = findViewById(R.id.home);
+        mEmptyListText = findViewById(R.id.list_empty);
     }
 }

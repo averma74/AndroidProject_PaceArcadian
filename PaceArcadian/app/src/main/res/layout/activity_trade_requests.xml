@@ -3,19 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/no_trade_request"
-        android:text="@string/no_trade_requests"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_margin="20dp"/>
+    <!--<TextView-->
+        <!--android:id="@+id/no_trade_request"-->
+        <!--android:text="@string/no_trade_requests"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:visibility="gone"-->
+        <!--android:layout_margin="20dp"/>-->
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/tradeRequests"
-        android:layout_below="@+id/no_trade_request"
+        android:id="@+id/tradeRequestFeed"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
