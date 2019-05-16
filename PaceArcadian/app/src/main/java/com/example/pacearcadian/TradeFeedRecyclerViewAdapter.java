@@ -14,15 +14,19 @@ import java.util.ArrayList;
 public class TradeFeedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private ArrayList<TradeItems> mItemsList;
-    TradeFeedRecyclerViewAdapter(Context context, ArrayList<TradeItems> items) {
+    View.OnClickListener mClickListner;
+    TradeFeedRecyclerViewAdapter(Context context, ArrayList<TradeItems> items,View.OnClickListener listener) {
         mContext = context;
         mItemsList = items;
+        mClickListner=listener;
     }
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = View.inflate(mContext,R.layout.feed_item,null);
-        return new RecyclerViewHolder(view);
+        RecyclerViewHolder holder= new RecyclerViewHolder(view);
+        holder.mTradeButton.setOnClickListener(mClickListner);
+        return holder;
     }
 
     @Override
@@ -31,7 +35,7 @@ public class TradeFeedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
        RecyclerViewHolder recyclerViewHolder = (RecyclerViewHolder) viewHolder;
        recyclerViewHolder.mTitle.setText(inventoryItem.getTitle());
        recyclerViewHolder.mDescription.setText(inventoryItem.getDescription());
-
+        recyclerViewHolder.mTradeButton.setTag(i);
        recyclerViewHolder.mTradeButton.setOnClickListener(v ->
                mContext.startActivity(new Intent(mContext, TradeFunctionalityActivity.class)));
 
