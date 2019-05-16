@@ -40,6 +40,8 @@
             android:layout_toEndOf="@id/item_image"
             android:layout_marginStart="10dp"
             android:textSize="16sp"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
             android:text="@string/trade"/>
 
     </RelativeLayout>

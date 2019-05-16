@@ -22,6 +22,17 @@ public class TradeRequest {
         requestingItemDescription = description2;
     }
 
+    String getStatus(){
+        if(mAccepted==true){
+            return "Completed";
+        }
+        else if(mDeclined==true){
+            return "Trade declined";
+        }
+        else{
+            return "Pending";
+        }
+    }
 
     public String getCurrentUserId() {
         return currentUserID;
