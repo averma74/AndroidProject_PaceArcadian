@@ -7,13 +7,21 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
+import com.example.pacearcadian.AccountActivity.UserInformation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProfileInventory extends Activity {
 
@@ -22,7 +30,7 @@ public class ProfileInventory extends Activity {
     private final int ACTIVITY_REQUEST_CODE = 1;
     private static String ID = "";
     DatabaseReference mDatabaseReference;
-
+    ArrayList<Items> mFetchedItems;
     //ImageView mProfileImage;
     //TextView mUsername;
     //TextView mRatingTitle, mRating, mFollowerTitle, mFollowerCount, mFollowingTitle, mFollowingCount;
@@ -41,37 +49,32 @@ public class ProfileInventory extends Activity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
 
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        //Log.i("debug", user.getEmail());
-        ID = user.getUid();
-
-        //final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        //Log.i("debug", user.getEmail());
-        //mUsername.setText(user.getDisplayName());
         RecyclerView recyclerView = findViewById(R.id.inventoryFeed);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new InventoryRecyclerViewAdapter(this, mItem);
-        recyclerView.setAdapter(mAdapter);
-        addData();
-    }
 
-    private void addData() {
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("/inventory/" + mFirebaseUser.getUid()  + "/");
 
-        //Retrieve from DB & put in mItem
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mFetchedItems = new ArrayList<Items>();
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren() ){
+                           Items inventoryItems = dataSnapshot1.getValue(Items.class);
+                            mFetchedItems.add(inventoryItems);
+                    }
+                    mAdapter = new InventoryRecyclerViewAdapter(ProfileInventory.this, mFetchedItems);
+                    recyclerView.setAdapter(mAdapter);
+                }
 
-//
-//        mItem.add(new Items("Movie Ticket - Endgame", "Endgame tickets available for 5/3/2019", "APPARELS", "test"));
-//        mItem.add(new Items("Book", "Cracking the coding interview", "BOOKS", "test"));
-//        mItem.add(new Items("Shoes", "Red shoes", "EATABLES", "test"));
-//        mItem.add(new Items("Notes for Android", "Kachi's class notes", "ELECTRONICS", "test"));
-//        mItem.add(new Items("Movie Ticket - Endgame", "Endgame tickets available for 5/3/2019", "FASHION ACCESSORIES", "test"));
-//        mItem.add(new Items("Book", "Cracking the coding interview", "FURNITURE", "test"));
-//        mItem.add(new Items("Shoes", "Red shoes", "MEDIA", "test"));
-//        mItem.add(new Items("Notes for Android", "Kachi's class notes", "SHOES", "test"));
-//        mItem.add(new Items("Movie Ticket - Endgame", "Endgame tickets available for 5/3/2019", "SPORTS", "test"));
-//        mItem.add(new Items("Book", "Cracking the coding interview", "TICKETS", "test"));
-//        mItem.add(new Items("Shoes", "Red shoes", "OTHER", "test"));
-        mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     // click listener for the floating action button
@@ -94,15 +97,16 @@ public class ProfileInventory extends Activity {
             String desc = data.getStringExtra(AddItem.EXTRA_MESSAGE_DESCRIPTION);
             String category = data.getStringExtra(AddItem.EXTRA_MESSAGE_CATEGORY);
             //add it to recycler view
-            mItem.add(new Items(title, desc, category, mFirebaseUser.getUid()));
-            mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("inventory");
-            mDatabaseReference.child(ID).setValue(mItem);
-            //mDatabaseReference.push().child("description").setValue(desc);
+            //mItem.add(new Items(title, desc, category, mFirebaseUser.getUid()));
 
-            //Add mItem to DB
+            String key = mDatabaseReference.child("inventory").push().getKey();
+            Items inventoryItem = new Items(title, desc, category, mFirebaseUser.getUid());
+            Map<String, Object> childUpdates = new HashMap<>();
 
+            childUpdates.put(key, inventoryItem);
+            mDatabaseReference.updateChildren(childUpdates);
 
-            mAdapter.notifyDataSetChanged();
+            //mAdapter.notifyDataSetChanged();
         }
     }
 
