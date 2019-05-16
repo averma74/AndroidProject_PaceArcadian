@@ -2,13 +2,11 @@ package com.example.pacearcadian;
 
 public class TradeRequestItem {
 
-    private String mMyTitle;
+    /*private String mMyTitle;
     private String mMyDescription;
-    private String mMyCategory;
     private String mMyUserId;
     private String mOfferedTitle;
     private String mOfferedDescription;
-    private String mOfferedCategory;
     private String mOfferedUserId;
 
     public TradeRequestItem(){
@@ -20,11 +18,11 @@ public class TradeRequestItem {
                             String mOfferedUserId) {
         this.mMyTitle = mMyTitle;
         this.mMyDescription = mMyDescription;
-        this.mMyCategory = mMyCategory;
+        //this.mMyCategory = mMyCategory;
         this.mMyUserId = mMyUserId;
         this.mOfferedTitle = mOfferedTitle;
         this.mOfferedDescription = mOfferedDescription;
-        this.mOfferedCategory = mOfferedCategory;
+        //this.mOfferedCategory = mOfferedCategory;
         this.mOfferedUserId = mOfferedUserId;
     }
 
@@ -36,9 +34,9 @@ public class TradeRequestItem {
         return mMyDescription;
     }
 
-    public String getmMyCategory() {
-        return mMyCategory;
-    }
+ //   public String getmMyCategory() {
+ //       return mMyCategory;
+ //   }
 
     public String getmMyUserId() {
         return mMyUserId;
@@ -52,11 +50,11 @@ public class TradeRequestItem {
         return mOfferedDescription;
     }
 
-    public String getmOfferedCategory() {
-        return mOfferedCategory;
-    }
+//    public String getmOfferedCategory() {
+//        return mOfferedCategory;
+//    }
 
     public String getmOfferedUserId() {
         return mOfferedUserId;
-    }
+    }*/
 }

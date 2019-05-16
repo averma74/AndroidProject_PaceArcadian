@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -51,7 +53,7 @@ public class TradeInventory extends Activity {
                     }
                     mAdapter = new TradeFeedRecyclerViewAdapter(TradeInventory.this, mItem,v->{
                             int position = (int) v.getTag();
-
+                            Log.i("debug ",String.valueOf(position));
                     });
                     recyclerView.setAdapter(mAdapter);
                 }

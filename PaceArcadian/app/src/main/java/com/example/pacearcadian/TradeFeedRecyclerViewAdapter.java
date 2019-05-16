@@ -35,7 +35,8 @@ public class TradeFeedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
        RecyclerViewHolder recyclerViewHolder = (RecyclerViewHolder) viewHolder;
        recyclerViewHolder.mTitle.setText(inventoryItem.getTitle());
        recyclerViewHolder.mDescription.setText(inventoryItem.getDescription());
-        recyclerViewHolder.mTradeButton.setTag(i);
+       recyclerViewHolder.mTradeButton.setTag(i);
+       recyclerViewHolder.itemView.setTag(i);
        recyclerViewHolder.mTradeButton.setOnClickListener(v ->
                mContext.startActivity(new Intent(mContext, TradeFunctionalityActivity.class)));
 

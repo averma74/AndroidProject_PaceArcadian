@@ -18,6 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TradeFunctionalityActivity extends AppCompatActivity {
 
     TextView mTextView;
@@ -31,6 +34,7 @@ public class TradeFunctionalityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trading_activity);
 
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         //initialize views
         mTextView = findViewById(R.id.select_item_to_trade);
         mRequestButton = findViewById(R.id.request_button);
@@ -51,6 +55,8 @@ public class TradeFunctionalityActivity extends AppCompatActivity {
         //request button
         mRequestButton.setOnClickListener(v -> {
             Toast.makeText(this, R.string.requested, Toast.LENGTH_LONG).show();
+            TradeRequest request = new TradeRequest("ID-1", "Tickets", "Endgame tickets", "ID-2", "Book", "Cracking the coding interview hardcopy");
+            mDatabaseReference.child("request").push().setValue(request);
             finish();
         });
     }
@@ -59,21 +65,20 @@ public class TradeFunctionalityActivity extends AppCompatActivity {
     private void addValuesToDropdown() {
         user = FirebaseAuth.getInstance().getCurrentUser();
         String ID = user.getUid();
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mDatabaseReference.child("inventory").child(ID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                List<String> listOfItems = new ArrayList<>();
                 try {
                     if (dataSnapshot.getValue() != null) {
                         for (DataSnapshot ds: dataSnapshot.getChildren()) {
                             //adding values to the dropdown
                             String values = ds.child("title").getValue(String.class);
-                            final String[] listOfItems = {values};
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(TradeFunctionalityActivity.this, android.R.layout.simple_spinner_dropdown_item, listOfItems);
-                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            mDropdown.setAdapter(adapter);
+                            listOfItems.add(values);
                         }
-
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(TradeFunctionalityActivity.this, android.R.layout.simple_spinner_dropdown_item, listOfItems);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        mDropdown.setAdapter(adapter);
                     }
                     else
                         Log.i("debug","probably null");

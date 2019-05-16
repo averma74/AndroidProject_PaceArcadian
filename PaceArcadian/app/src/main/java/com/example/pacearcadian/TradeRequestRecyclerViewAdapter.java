@@ -13,9 +13,9 @@ import java.util.ArrayList;
 public class TradeRequestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<TradeRequestItem> mItemsList;
+    private ArrayList<TradeRequest> mItemsList;
 
-    TradeRequestRecyclerViewAdapter(Context context, ArrayList<TradeRequestItem> items) {
+    TradeRequestRecyclerViewAdapter(Context context, ArrayList<TradeRequest> items) {
         mContext = context;
         mItemsList = items;
     }
@@ -29,16 +29,17 @@ public class TradeRequestRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        TradeRequestItem inventoryItem = mItemsList.get(i);
+        TradeRequest inventoryItem = mItemsList.get(i);
         RecyclerViewHolder recyclerViewHolder = (RecyclerViewHolder) viewHolder;
-        recyclerViewHolder.mMyTitle.setText(inventoryItem.getmMyUserId());
-        recyclerViewHolder.mMyDescription.setText(inventoryItem.getmMyDescription());
-        recyclerViewHolder.mOfferedTitle.setText(inventoryItem.getmOfferedTitle());
-        recyclerViewHolder.mOfferedDescription.setText(inventoryItem.getmOfferedDescription());
+        recyclerViewHolder.mMyTitle.setText(inventoryItem.getCurrentItemTitle());
+        recyclerViewHolder.mMyDescription.setText(inventoryItem.getCurrentItemDescription());
+        recyclerViewHolder.mOfferedTitle.setText(inventoryItem.getRequestingItemTitle());
+        recyclerViewHolder.mOfferedDescription.setText(inventoryItem.getRequestingItemDescription());
+    }
 
         //if category is different
-        recyclerViewHolder.mMyImageView.setImageResource(R.drawable.other);
-        switch (inventoryItem.getmMyCategory()){
+        //recyclerViewHolder.mMyImageView.setImageResource(R.drawable.other);
+        /*switch (inventoryItem.getmMyCategory()){
             case "APPARELS":
                 recyclerViewHolder.mMyImageView.setImageResource(R.drawable.apparels);
                 break;
@@ -71,11 +72,11 @@ public class TradeRequestRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
                 break;
             case "OTHER":
                 recyclerViewHolder.mMyImageView.setImageResource(R.drawable.other);
-                break;
-        }
+                break;*/
+
 
         //if category is different
-        recyclerViewHolder.mOfferedImageView.setImageResource(R.drawable.other);
+        /*recyclerViewHolder.mOfferedImageView.setImageResource(R.drawable.other);
         switch (inventoryItem.getmMyCategory()){
             case "APPARELS":
                 recyclerViewHolder.mOfferedImageView.setImageResource(R.drawable.apparels);
@@ -109,11 +110,11 @@ public class TradeRequestRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
                 break;
             case "OTHER":
                 recyclerViewHolder.mOfferedImageView.setImageResource(R.drawable.other);
-                break;
-        }
+                break;*/
+        //}
 
 
-    }
+
 
     @Override
     public int getItemCount() {
@@ -124,19 +125,19 @@ public class TradeRequestRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
 
         TextView mMyTitle;
         TextView mMyDescription;
-        ImageView mMyImageView;
+        //ImageView mMyImageView;
         TextView mOfferedTitle;
         TextView mOfferedDescription;
-        ImageView mOfferedImageView;
+        //ImageView mOfferedImageView;
 
         RecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
             mMyTitle = itemView.findViewById(R.id.my_title);
             mMyDescription = itemView.findViewById(R.id.my_description);
-            mMyImageView = itemView.findViewById(R.id.my_item_image);
+            //mMyImageView = itemView.findViewById(R.id.my_item_image);
             mOfferedTitle = itemView.findViewById(R.id.offered_title);
             mOfferedDescription = itemView.findViewById(R.id.offered_description);
-            mOfferedImageView = itemView.findViewById(R.id.offered_item_image);
+            //mOfferedImageView = itemView.findViewById(R.id.offered_item_image);
         }
     }
 }
