@@ -47,9 +47,7 @@ public class TradeInventory extends Activity {
                             if(inventoryItems.getmUserId()!=mFirebaseUser.getUid()){
                                 mItem.add(inventoryItems);
                             }
-
                         }
-
                     }
                     mAdapter = new TradeFeedRecyclerViewAdapter(TradeInventory.this, mItem,v->{
                             int position = (int) v.getTag();
@@ -57,7 +55,6 @@ public class TradeInventory extends Activity {
                     });
                     recyclerView.setAdapter(mAdapter);
                 }
-
             }
 
             @Override
@@ -66,9 +63,6 @@ public class TradeInventory extends Activity {
             }
         });
 
-        //recyclerView.setAdapter(mAdapter);
-
-       // addData();
         buttonClickListeners();
     }
 
@@ -76,19 +70,6 @@ public class TradeInventory extends Activity {
         mHomeFloatingButton.setOnClickListener(v ->
                 startActivity(new Intent(TradeInventory.this, MainActivity.class)));
 
-    }
-
-    private void addData() {
-
-
-
-        //get data from db put into mItem
-        mItem.add(new TradeItems("Movie Ticket - Endgame", "Endgame tickets available for 5/3/2019", "APPARELS", "test"));
-        mItem.add(new TradeItems("Book", "Cracking the coding interview", "BOOKS", "test"));
-        mItem.add(new TradeItems("Shoes", "Red shoes", "EATABLES", "test"));
-
-
-        mAdapter.notifyDataSetChanged();
     }
 
 }

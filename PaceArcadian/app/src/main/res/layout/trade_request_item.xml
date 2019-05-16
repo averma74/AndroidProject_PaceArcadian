@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:layout_centerHorizontal="true"
     android:orientation="vertical"
+    android:weightSum="3"
     android:background="@color/common_google_signin_btn_text_light_disabled">
 
     <LinearLayout
@@ -14,10 +15,11 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="175dp"
+            android:layout_height="wrap_content"
             android:background="@color/cardview_light_background"
             android:layout_margin="10dp"
             android:gravity="center"
+            android:padding="20dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -28,8 +30,8 @@
                 android:textSize="16sp"/>
             <ImageView
                 android:id="@+id/my_item_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:src="@drawable/ic_add_a_photo_black_24dp"
                 android:padding="20dp"/>
             <TextView
@@ -50,16 +52,17 @@
 
         <ImageView
             android:layout_weight="1"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:src="@drawable/ic_compare_arrows_black_24dp"
-            android:layout_height="175dp"
+            android:layout_height="200dp"
             android:layout_margin="10dp"
             android:gravity="center"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="175dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
+            android:padding="20dp"
             android:background="@color/cardview_light_background"
             android:layout_margin="10dp"
             android:layout_weight="1"
@@ -72,8 +75,8 @@
                 android:textSize="16sp"/>
             <ImageView
                 android:id="@+id/offered_item_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:src="@drawable/ic_add_a_photo_black_24dp"
                 android:padding="20dp"/>
             <TextView
