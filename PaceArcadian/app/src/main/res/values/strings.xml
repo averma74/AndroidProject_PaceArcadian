@@ -71,6 +71,7 @@
     <string name="no_trade_requests">No Trade Requests</string>
     <string name="select_item_to_trade">What item do you want to trade?</string>
     <string name="request">Request</string>
+    <string name="requested">Item requested successfully.</string>
     <string-array name="category_array">
         <item>APPARELS</item>
         <item>BOOKS</item>
