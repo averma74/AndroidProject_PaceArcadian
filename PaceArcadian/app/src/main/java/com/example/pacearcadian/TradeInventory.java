@@ -46,7 +46,7 @@ public class TradeInventory extends Activity {
                     for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren() ){
                         for(DataSnapshot snap:dataSnapshot1.getChildren()){
                             TradeItems inventoryItems = snap.getValue(TradeItems.class);
-                            if(inventoryItems.getmUserId()!=mFirebaseUser.getUid()){
+                            if(inventoryItems.getUserId()!=mFirebaseUser.getUid()){
                                 mItem.add(inventoryItems);
                             }
                         }

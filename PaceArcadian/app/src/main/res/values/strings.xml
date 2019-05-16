@@ -90,4 +90,7 @@
         <item>TICKETS</item>
         <item>OTHER</item>
     </string-array>
+    <string name="RequestedTitle">Title:-</string>
+    <string name="RequestedTo">Requested To:-</string>
+    <string name="RequestedStatus">Status:-</string>
 </resources>

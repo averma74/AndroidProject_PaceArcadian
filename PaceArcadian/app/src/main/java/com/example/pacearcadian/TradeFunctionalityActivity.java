@@ -1,5 +1,6 @@
 package com.example.pacearcadian;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +29,10 @@ public class TradeFunctionalityActivity extends AppCompatActivity {
     Spinner mDropdown;
     FirebaseUser user;
     DatabaseReference mDatabaseReference;
-
+    TradeItems mItem;
+    String UID2;
+    String title2;
+    String Description2;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +47,12 @@ public class TradeFunctionalityActivity extends AppCompatActivity {
 
         addValuesToDropdown();
         clickListeners();
+
+        Bundle extras = getIntent().getExtras();
+        mItem = extras.getParcelable("item");
+        UID2 = mItem.getUserId();
+        title2 = mItem.getTitle();
+        Description2 = mItem.getDescription();
     }
 
     private void clickListeners() {
@@ -55,7 +65,7 @@ public class TradeFunctionalityActivity extends AppCompatActivity {
         //request button
         mRequestButton.setOnClickListener(v -> {
             Toast.makeText(this, R.string.requested, Toast.LENGTH_LONG).show();
-            TradeRequest request = new TradeRequest("ID-1", "Tickets", "Endgame tickets", "ID-2", "Book", "Cracking the coding interview hardcopy");
+            TradeRequest request = new TradeRequest("ID-1", "Tickets", "Endgame tickets", UID2, title2, Description2);
             mDatabaseReference.child("request").push().setValue(request);
             finish();
         });

@@ -32,6 +32,7 @@ public class TradeRequestedRecyclerViewAdapter extends RecyclerView.Adapter<Recy
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         TradeRequest requestedItems = mItemsList.get(i);
+        Log.e("id",requestedItems.getRequestingUserId()+"");
         RecyclerViewHolder recyclerViewHolder = (RecyclerViewHolder) viewHolder;
         recyclerViewHolder.mTitle.setText(requestedItems.getRequestingItemTitle());
         recyclerViewHolder.mStatus.setText(requestedItems.getStatus());

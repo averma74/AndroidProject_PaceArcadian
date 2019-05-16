@@ -3,6 +3,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 
 public class TradeFeedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
+    final String TAG = "items" ;
     private ArrayList<TradeItems> mItemsList;
     View.OnClickListener mClickListner;
     TradeFeedRecyclerViewAdapter(Context context, ArrayList<TradeItems> items,View.OnClickListener listener) {
@@ -37,8 +39,14 @@ public class TradeFeedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
        recyclerViewHolder.mDescription.setText(inventoryItem.getDescription());
        recyclerViewHolder.mTradeButton.setTag(i);
        recyclerViewHolder.itemView.setTag(i);
-       recyclerViewHolder.mTradeButton.setOnClickListener(v ->
-               mContext.startActivity(new Intent(mContext, TradeFunctionalityActivity.class)));
+
+       recyclerViewHolder.mTradeButton.setOnClickListener(v ->{
+
+                    Intent intent = new Intent(mContext, TradeFunctionalityActivity.class);
+                   intent.putExtra("item",inventoryItem);
+                   mContext.startActivity(intent);
+               }
+               );
 
         //if category is different
         recyclerViewHolder.mImageView.setImageResource(R.drawable.other);
