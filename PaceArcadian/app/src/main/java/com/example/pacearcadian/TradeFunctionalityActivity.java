@@ -1,10 +1,12 @@
 package com.example.pacearcadian;
 
-import android.content.Intent;
+import android.content.ClipData;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -30,9 +32,12 @@ public class TradeFunctionalityActivity extends AppCompatActivity {
     FirebaseUser user;
     DatabaseReference mDatabaseReference;
     TradeItems mItem;
-    String UID2;
-    String title2;
-    String Description2;
+    String UID1, UID2;
+    String title1, title2;
+    String description1, description2;
+    List<String> listOfTitles = new ArrayList<>();
+    List<Items> listOfItems = new ArrayList<Items>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,13 +51,32 @@ public class TradeFunctionalityActivity extends AppCompatActivity {
         mDropdown = findViewById(R.id.items_list_dropdown);
 
         addValuesToDropdown();
+        itemSelected();
         clickListeners();
 
         Bundle extras = getIntent().getExtras();
         mItem = extras.getParcelable("item");
         UID2 = mItem.getUserId();
         title2 = mItem.getTitle();
-        Description2 = mItem.getDescription();
+        description2 = mItem.getDescription();
+    }
+
+    private void itemSelected() {
+        mDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Items temp_obj = listOfItems.get(position);
+                Log.i("debug", temp_obj.toString());
+                UID1 = temp_obj.getUserId();
+                title1 = temp_obj.getTitle();
+                description1 = temp_obj.getDescription();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void clickListeners() {
@@ -65,10 +89,12 @@ public class TradeFunctionalityActivity extends AppCompatActivity {
         //request button
         mRequestButton.setOnClickListener(v -> {
             Toast.makeText(this, R.string.requested, Toast.LENGTH_LONG).show();
-            TradeRequest request = new TradeRequest("ID-1", "Tickets", "Endgame tickets", UID2, title2, Description2);
+            TradeRequest request = new TradeRequest(UID1, title1, description1, UID2, title2, description2);
             mDatabaseReference.child("request").push().setValue(request);
             finish();
         });
+
+
     }
 
 
@@ -78,15 +104,15 @@ public class TradeFunctionalityActivity extends AppCompatActivity {
         mDatabaseReference.child("inventory").child(ID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<String> listOfItems = new ArrayList<>();
                 try {
                     if (dataSnapshot.getValue() != null) {
                         for (DataSnapshot ds: dataSnapshot.getChildren()) {
                             //adding values to the dropdown
+                            listOfItems.add(ds.getValue(Items.class));
                             String values = ds.child("title").getValue(String.class);
-                            listOfItems.add(values);
+                            listOfTitles.add(values);
                         }
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(TradeFunctionalityActivity.this, android.R.layout.simple_spinner_dropdown_item, listOfItems);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(TradeFunctionalityActivity.this, android.R.layout.simple_spinner_dropdown_item, listOfTitles);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         mDropdown.setAdapter(adapter);
                     }
