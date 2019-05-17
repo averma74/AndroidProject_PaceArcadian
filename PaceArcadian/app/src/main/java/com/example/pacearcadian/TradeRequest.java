@@ -24,7 +24,7 @@ public class TradeRequest {
 
     String getStatus(){
         if(mAccepted){
-            return "Completed";
+            return "Trade accepted";
         }
         else if(mDeclined){
             return "Trade declined";
@@ -58,10 +58,10 @@ public class TradeRequest {
         return requestingItemDescription;
     }
 
-    public void setStatus(int flag) {
-        if (flag==1)
+    void setStatus(String flag) {
+        if (flag=="1")
             mAccepted = true;
-        if (flag==0)
+        if (flag=="0")
             mDeclined = true;
     }
 }
