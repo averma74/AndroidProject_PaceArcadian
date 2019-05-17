@@ -44,13 +44,6 @@ public class TradeRequests extends AppCompatActivity {
         mFirebaseUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("/trade-request/" + mFirebaseUser.getUid()  + "/");
 
-        //mFetchedItems.add(new TradeRequest("blah","blah","OTHER","test", "blah","blah","OTHER", "test"));
-
-        //mItems.add(new TradeRequest("ID-1", "Tickets", "Endgame tickets", "ID-2", "Book", "Cracking the coding interview hardcopy"));
-
-        mAdapter = new TradeRequestRecyclerViewAdapter(TradeRequests.this, mItems);
-        recyclerView.setAdapter(mAdapter);
-
         buttonClickListeners();
         fetchFromDatabase();
 
@@ -60,15 +53,11 @@ public class TradeRequests extends AppCompatActivity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //if(dataSnapshot.exists()){
-                    //for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren() ){
                         for(DataSnapshot ds:dataSnapshot.getChildren()){
                             TradeRequest tradeItems = ds.getValue(TradeRequest.class);
-                            //if(inventoryItems.getmUserId()!=mFirebaseUser.getUid()){
+
                             mItems.add(tradeItems);
-                            //}
                         }
-                    //}
                     mAdapter = new TradeRequestRecyclerViewAdapter(TradeRequests.this, mItems);
                     recyclerView.setAdapter(mAdapter);
 

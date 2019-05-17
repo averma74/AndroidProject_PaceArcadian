@@ -23,6 +23,14 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
         android:layout_marginStart="10dp"/>
+    <TextView
+        android:id="@+id/inventory_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_inventory_items_to_trade"
+        android:layout_marginTop="40dp"
+        android:visibility="gone"
+        android:layout_gravity="center"/>
 
         <Button
             android:id="@+id/request_button"
