@@ -23,10 +23,10 @@ public class TradeRequest {
     }
 
     String getStatus(){
-        if(mAccepted==true){
+        if(mAccepted){
             return "Completed";
         }
-        else if(mDeclined==true){
+        else if(mDeclined){
             return "Trade declined";
         }
         else{

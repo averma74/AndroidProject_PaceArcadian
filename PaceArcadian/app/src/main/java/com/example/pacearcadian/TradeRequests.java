@@ -43,14 +43,12 @@ public class TradeRequests extends AppCompatActivity {
 
         //mItems.add(new TradeRequest("ID-1", "Tickets", "Endgame tickets", "ID-2", "Book", "Cracking the coding interview hardcopy"));
 
-        if(mItems.size() == 0){
-            mEmptyTradeRequests.setVisibility(View.VISIBLE);
-        }
         mAdapter = new TradeRequestRecyclerViewAdapter(TradeRequests.this, mItems);
         recyclerView.setAdapter(mAdapter);
 
         buttonClickListeners();
         fetchFromDatabase();
+
     }
 
     private void fetchFromDatabase() {
@@ -68,6 +66,12 @@ public class TradeRequests extends AppCompatActivity {
                     //}
                     mAdapter = new TradeRequestRecyclerViewAdapter(TradeRequests.this, mItems);
                     recyclerView.setAdapter(mAdapter);
+
+                if(mItems.size() == 0){
+                    mEmptyTradeRequests.setVisibility(View.VISIBLE);
+                }else{
+                    mEmptyTradeRequests.setVisibility(View.GONE);
+                }
                 //}
             }
 
