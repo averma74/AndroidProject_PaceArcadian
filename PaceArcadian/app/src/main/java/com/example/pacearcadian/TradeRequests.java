@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +28,7 @@ public class TradeRequests extends AppCompatActivity {
     FloatingActionButton mHomeFloatingButton;
     DatabaseReference mDatabase;
     RecyclerView recyclerView;
+    private FirebaseUser mFirebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +40,10 @@ public class TradeRequests extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.tradeRequestFeed);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("/trade-request/" + mFirebaseUser.getUid()  + "/");
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("/request/");
         //mFetchedItems.add(new TradeRequest("blah","blah","OTHER","test", "blah","blah","OTHER", "test"));
 
         //mItems.add(new TradeRequest("ID-1", "Tickets", "Endgame tickets", "ID-2", "Book", "Cracking the coding interview hardcopy"));

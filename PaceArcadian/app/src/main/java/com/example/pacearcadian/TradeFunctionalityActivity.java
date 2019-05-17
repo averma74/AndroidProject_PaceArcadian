@@ -22,7 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TradeFunctionalityActivity extends AppCompatActivity {
 
@@ -35,6 +37,7 @@ public class TradeFunctionalityActivity extends AppCompatActivity {
     String UID1, UID2;
     String title1, title2;
     String description1, description2;
+    String category1, category2;
     List<String> listOfTitles = new ArrayList<>();
     List<Items> listOfItems = new ArrayList<Items>();
 
@@ -59,6 +62,7 @@ public class TradeFunctionalityActivity extends AppCompatActivity {
         UID2 = mItem.getUserId();
         title2 = mItem.getTitle();
         description2 = mItem.getDescription();
+        category2 = mItem.getCategory();
     }
 
     private void itemSelected() {
@@ -70,6 +74,7 @@ public class TradeFunctionalityActivity extends AppCompatActivity {
                 UID1 = temp_obj.getUserId();
                 title1 = temp_obj.getTitle();
                 description1 = temp_obj.getDescription();
+                category1 = temp_obj.getCategory();
             }
 
             @Override
@@ -89,8 +94,18 @@ public class TradeFunctionalityActivity extends AppCompatActivity {
         //request button
         mRequestButton.setOnClickListener(v -> {
             Toast.makeText(this, R.string.requested, Toast.LENGTH_LONG).show();
-            TradeRequest request = new TradeRequest(UID1, title1, description1, UID2, title2, description2);
-            mDatabaseReference.child("request").push().setValue(request);
+            TradeRequest request = new TradeRequest(UID1, title1, description1,category1, UID2, title2, description2, category2);
+            //String key = UID2;
+            String key = mDatabaseReference.push().getKey();
+            Map<String, Object> childUpdates = new HashMap<>();
+            childUpdates.put(key, request);
+            mDatabaseReference = mDatabaseReference.child("trade-request/" + UID2);
+            mDatabaseReference.updateChildren(childUpdates);
+            //mDatabaseReference.child("request").push().setValue(request);
+
+            mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+            mDatabaseReference = mDatabaseReference.child("trade-requested/" + UID1);
+            mDatabaseReference.updateChildren(childUpdates);
             finish();
         });
 
@@ -106,6 +121,7 @@ public class TradeFunctionalityActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
                     if (dataSnapshot.getValue() != null) {
+                        mRequestButton.setEnabled(true);
                         for (DataSnapshot ds: dataSnapshot.getChildren()) {
                             //adding values to the dropdown
                             listOfItems.add(ds.getValue(Items.class));
@@ -116,9 +132,10 @@ public class TradeFunctionalityActivity extends AppCompatActivity {
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         mDropdown.setAdapter(adapter);
                     }
-                    else
-                        Log.i("debug","probably null");
-                    //data snapshot is null
+                    else{
+                        mRequestButton.setEnabled(false);
+                    }
+
                 }
                 catch (Exception e) {
                     e.printStackTrace();
