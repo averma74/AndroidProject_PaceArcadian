@@ -8,6 +8,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,6 +28,7 @@ public class TradeInventory extends Activity {
     DatabaseReference mDatabaseReference;
     private FirebaseUser mFirebaseUser;
     RecyclerView recyclerView;
+    TextView mTradeFeedEmpty;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,18 +38,20 @@ public class TradeInventory extends Activity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
         recyclerView= findViewById(R.id.tradeFeeds);
+        mTradeFeedEmpty = findViewById(R.id.trade_feed_empty);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("/inventory/" );
 
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                mTradeFeedEmpty.setVisibility(View.VISIBLE);
                 if(dataSnapshot.exists()){
                     for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren() ){
+                        mTradeFeedEmpty.setVisibility(View.GONE);
                         for(DataSnapshot snap:dataSnapshot1.getChildren()){
                             TradeItems inventoryItems = snap.getValue(TradeItems.class);
-                            if(inventoryItems.getUserId()!=mFirebaseUser.getUid()){
+                            if(!inventoryItems.getUserId().equals(mFirebaseUser.getUid())){
                                 mItem.add(inventoryItems);
                             }
                         }

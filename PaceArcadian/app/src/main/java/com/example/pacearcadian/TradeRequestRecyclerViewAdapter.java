@@ -1,6 +1,5 @@
 package com.example.pacearcadian;
 
-import android.app.Notification;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -155,7 +151,6 @@ public class TradeRequestRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
 
     private class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mEmptyTradeRequests;
         TextView mMyTitle;
         TextView mMyDescription;
         //ImageView mMyImageView;
@@ -174,7 +169,6 @@ public class TradeRequestRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
             //mOfferedImageView = itemView.findViewById(R.id.offered_item_image);
             mAcceptButton = itemView.findViewById(R.id.accept_trade);
             mDeclineButton = itemView.findViewById(R.id.decline_trade);
-            mEmptyTradeRequests = itemView.findViewById(R.id.no_trade_request);
         }
     }
 }

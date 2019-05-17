@@ -93,4 +93,9 @@
     <string name="RequestedTitle">Title:-</string>
     <string name="RequestedTo">Requested To:-</string>
     <string name="RequestedStatus">Status:-</string>
+    <string name="requested_item_new">Requested Item:</string>
+    <string name="add_inventory_items_to_trade">Add Inventory Items to Trade!</string>
+    <string name="inventory_list_is_empty_start_adding">Inventory List is empty! Start Adding..</string>
+    <string name="trade_feed_empty">Trade Feed Empty!</string>
+    <string name="no_trade_requested">No Trade Requested!</string>
 </resources>

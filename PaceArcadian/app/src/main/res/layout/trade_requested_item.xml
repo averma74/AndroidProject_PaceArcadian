@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/TitleString"
-                android:text="@string/RequestedTitle"
+                android:text="@string/requested_item_new"
                 android:layout_toEndOf="@id/item_image"
                 android:textSize="15sp" />
             <TextView
@@ -50,6 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/RequestedToString"
+                android:visibility="gone"
                 android:textSize="15sp"
                 android:text="@string/RequestedTo" />
 

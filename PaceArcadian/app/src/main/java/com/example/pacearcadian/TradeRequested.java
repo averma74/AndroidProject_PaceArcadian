@@ -11,6 +11,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,9 +25,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class TradeRequested extends AppCompatActivity {
-    ArrayList<TradeRequest> mItem = new ArrayList<>();
+    ArrayList<TradeRequestedItemData> mItem = new ArrayList<>();
     FloatingActionButton mHomeFloatingButton;
-
+    TextView mNoTradeRequested;
     DatabaseReference mDatabaseReference;
     private FirebaseUser mFirebaseUser;
     RecyclerView recyclerView;
@@ -35,18 +37,22 @@ public class TradeRequested extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trade_requested);
+        mNoTradeRequested = findViewById(R.id.trade_requested_feed_empty);
         RecyclerView recyclerView = findViewById(R.id.tradeRequested);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new TradeRequestedRecyclerViewAdapter(TradeRequested.this, mItem);
         recyclerView.setAdapter(mAdapter);
-
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("/request/");
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mAuth.getCurrentUser();
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("/trade-requested/"  + mFirebaseUser.getUid()  + "/");
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                mNoTradeRequested.setVisibility(View.VISIBLE);
                 if(dataSnapshot.exists()){
                     for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren() ){
-                        TradeRequest inventoryItems = dataSnapshot1.getValue(TradeRequest.class);
+                        mNoTradeRequested.setVisibility(View.GONE);
+                        TradeRequestedItemData inventoryItems = dataSnapshot1.getValue(TradeRequestedItemData.class);
                         mItem.add(inventoryItems);
                     }
                     mAdapter.notifyDataSetChanged();

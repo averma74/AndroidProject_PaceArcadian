@@ -63,8 +63,8 @@ public class ProfileInventory extends Activity {
                 mFetchedItems = new ArrayList<>();
                 mEmptyListText.setVisibility(View.VISIBLE);
                 if(dataSnapshot.exists()){
-                    mEmptyListText.setVisibility(View.GONE);
                     for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren() ){
+                            mEmptyListText.setVisibility(View.GONE);
                            Items inventoryItems = dataSnapshot1.getValue(Items.class);
                             mFetchedItems.add(inventoryItems);
                     }
@@ -100,7 +100,6 @@ public class ProfileInventory extends Activity {
             String desc = data.getStringExtra(AddItem.EXTRA_MESSAGE_DESCRIPTION);
             String category = data.getStringExtra(AddItem.EXTRA_MESSAGE_CATEGORY);
             //add it to recycler view
-            //mItem.add(new Items(title, desc, category, mFirebaseUser.getUid()));
 
             String key = mDatabaseReference.child("inventory").push().getKey();
             Items inventoryItem = new Items(title, desc, category, mFirebaseUser.getUid());
@@ -108,21 +107,11 @@ public class ProfileInventory extends Activity {
 
             childUpdates.put(key, inventoryItem);
             mDatabaseReference.updateChildren(childUpdates);
-
-            //mAdapter.notifyDataSetChanged();
         }
     }
 
     // initialize all views
     private void initializeViews() {
-//        mProfileImage = findViewById(R.id.profile_image);
-//        mUsername = findViewById(R.id.username);
-//        mRatingTitle = findViewById(R.id.rating_tab);
-//        mRating = findViewById(R.id.rating);
-//        mFollowerTitle = findViewById(R.id.follower_tab);
-//        mFollowerCount = findViewById(R.id.follower_count);
-//        mFollowingTitle = findViewById(R.id.following_tab);
-//        mFollowingCount = findViewById(R.id.following_count);
         mFloatingButton = findViewById(R.id.fab);
         mHomeFloatingButton = findViewById(R.id.home);
         mEmptyListText = findViewById(R.id.list_empty);

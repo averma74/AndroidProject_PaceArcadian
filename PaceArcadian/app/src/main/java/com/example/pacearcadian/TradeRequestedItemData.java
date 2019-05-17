@@ -1,6 +1,7 @@
 package com.example.pacearcadian;
 
-public class TradeRequest {
+
+public class TradeRequestedItemData {
 
     private String currentUserID, requestingUserID;
     private String currentItemTitle, requestingItemTitle;
@@ -10,12 +11,12 @@ public class TradeRequest {
     private boolean mDeclined = false;
     private boolean mPending = false;
 
-    public TradeRequest() {
+    public TradeRequestedItemData() {
         //empty constructor
     }
 
-    TradeRequest(String UID1, String title1, String description1,String category1,
-                 String UID2, String title2, String description2, String category2 ) {
+    TradeRequestedItemData(String UID1, String title1, String description1, String category1,
+                           String UID2, String title2, String description2, String category2) {
         currentUserID = UID1;
         currentItemTitle = title1;
         currentItemDescription = description1;
@@ -25,14 +26,13 @@ public class TradeRequest {
         requestingItemDescription = description2;
         requestingItemCategory = category2;
     }
-    String getStatus(){
-        if(mAccepted){
-            return "Trade accepted";
-        }
-        else if(mDeclined){
+
+    String getStatus() {
+        if (mAccepted) {
+            return "Completed";
+        } else if (mDeclined) {
             return "Trade declined";
-        }
-        else{
+        } else {
             return "Pending";
         }
     }
@@ -61,13 +61,6 @@ public class TradeRequest {
         return requestingItemDescription;
     }
 
-    void setStatus(String flag) {
-        if (flag=="1")
-            mAccepted = true;
-        if (flag=="0")
-            mDeclined = true;
-    }
-
     String getCurrentItemCategory() {
         return currentItemCategory;
     }
@@ -76,4 +69,3 @@ public class TradeRequest {
         return requestingItemCategory;
     }
 }
-

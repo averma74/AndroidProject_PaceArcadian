@@ -14,9 +14,9 @@ import java.util.ArrayList;
 
 public class TradeRequestedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
-    private ArrayList<TradeRequest> mItemsList;
+    private ArrayList<TradeRequestedItemData> mItemsList;
 
-    TradeRequestedRecyclerViewAdapter(Context context, ArrayList<TradeRequest> items) {
+    TradeRequestedRecyclerViewAdapter(Context context, ArrayList<TradeRequestedItemData> items) {
         mContext = context;
         mItemsList = items;
     }
@@ -26,19 +26,18 @@ public class TradeRequestedRecyclerViewAdapter extends RecyclerView.Adapter<Recy
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = View.inflate(mContext, R.layout.trade_requested_item, null);
         return new RecyclerViewHolder(view);
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        TradeRequest requestedItems = mItemsList.get(i);
+        TradeRequestedItemData requestedItems = mItemsList.get(i);
         Log.e("id",requestedItems.getRequestingUserId()+"");
         RecyclerViewHolder recyclerViewHolder = (RecyclerViewHolder) viewHolder;
         recyclerViewHolder.mTitle.setText(requestedItems.getRequestingItemTitle());
         recyclerViewHolder.mStatus.setText(requestedItems.getStatus());
         recyclerViewHolder.mUserID.setText(requestedItems.getRequestingUserId());
-       /* recyclerViewHolder.mImageView.setImageResource(R.drawable.other);
-        switch (requestedItems.getCategory()){
+       recyclerViewHolder.mImageView.setImageResource(R.drawable.other);
+        switch (requestedItems.getRequestingItemCategory()){
             case "APPARELS":
                 recyclerViewHolder.mImageView.setImageResource(R.drawable.apparels);
                 break;
@@ -72,7 +71,7 @@ public class TradeRequestedRecyclerViewAdapter extends RecyclerView.Adapter<Recy
             case "OTHER":
                 recyclerViewHolder.mImageView.setImageResource(R.drawable.other);
                 break;
-        }*/
+        }
     }
 
     @Override
