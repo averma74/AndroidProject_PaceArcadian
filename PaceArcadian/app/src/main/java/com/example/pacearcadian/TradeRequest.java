@@ -57,5 +57,12 @@ public class TradeRequest {
     String getRequestingItemDescription() {
         return requestingItemDescription;
     }
+
+    public void setStatus(int flag) {
+        if (flag==1)
+            mAccepted = true;
+        if (flag==0)
+            mDeclined = true;
+    }
 }
 

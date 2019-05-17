@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,9 +36,24 @@ public class TradeRequestRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
         recyclerViewHolder.mMyDescription.setText(inventoryItem.getCurrentItemDescription());
         recyclerViewHolder.mOfferedTitle.setText(inventoryItem.getRequestingItemTitle());
         recyclerViewHolder.mOfferedDescription.setText(inventoryItem.getRequestingItemDescription());
+        //buttonClickListeners();
+
+        recyclerViewHolder.mDeclineButton.setOnClickListener(v -> {
+            inventoryItem.setStatus(0);
+            mItemsList.remove(i);
+            notifyItemRemoved(i);
+        });
+
+        recyclerViewHolder.mAcceptButton.setOnClickListener(v -> {
+            inventoryItem.setStatus(1);
+            mItemsList.remove(i);
+            notifyItemRemoved(i);
+        });
     }
 
-        //if category is different
+
+
+    //if category is different
         //recyclerViewHolder.mMyImageView.setImageResource(R.drawable.other);
         /*switch (inventoryItem.getmMyCategory()){
             case "APPARELS":
@@ -129,6 +145,7 @@ public class TradeRequestRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
         TextView mOfferedTitle;
         TextView mOfferedDescription;
         //ImageView mOfferedImageView;
+        Button mAcceptButton, mDeclineButton;
 
         RecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -138,6 +155,8 @@ public class TradeRequestRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
             mOfferedTitle = itemView.findViewById(R.id.offered_title);
             mOfferedDescription = itemView.findViewById(R.id.offered_description);
             //mOfferedImageView = itemView.findViewById(R.id.offered_item_image);
+            mAcceptButton = itemView.findViewById(R.id.accept_trade);
+            mDeclineButton = itemView.findViewById(R.id.decline_trade);
         }
     }
 }
